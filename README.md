@@ -42,7 +42,7 @@ Este projeto faz parte do stack de desenvolvimento multiplataforma do curso de D
 ---
 
 ## 📂 Estrutura do Projeto
-
+```
 SOSEngasgo_ReactNative/
 ├── src/
 │   ├── assets/       # Ícones, imagens e recursos visuais
@@ -52,7 +52,7 @@ SOSEngasgo_ReactNative/
 │   └── styles/       # Estilos globais e temas
 ├── App.tsx           # Ponto de entrada da aplicação
 └── app.json          # Configurações do Expo
-
+```
 ---
 
 ## 🎯 Orientações para Padronização de Commits
