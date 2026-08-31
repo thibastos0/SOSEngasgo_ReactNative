@@ -1,5 +1,25 @@
+# 🚨 SOS Engasgo - React Native
+
+<div align="center">
+
+[![React Native](https://img.shields.io/badge/React%20Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactnative.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)](https://expo.dev/)
+[![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-orange?style=for-the-badge)](https://github.com/thibastos0/SOSEngasgo_ReactNative)
+
+*Aplicativo mobile de orientações de primeiros socorros para casos de engasgo, desenvolvido como Projeto Integrador na **Fatec Indaiatuba** (Curso Superior de Tecnologia em Desenvolvimento de Software Multiplataforma - DSM).*
+
+</div>
+
 ---
 
+## 💡 Sobre o Projeto
+
+O **SOS Engasgo** é uma ferramenta de suporte rápido e acessível criada para orientar qualquer pessoa a agir de forma correta e imediata em situações de engasgo (obstrução de vias aéreas por corpo estranho - OVACE). Em momentos críticos, cada segundo conta; por isso, o aplicativo foi projetado com foco em **clareza, rapidez e acessibilidade visual**, atendendo diferentes faixas etárias (bebês, crianças e adultos).
+
+Este repositório contém o aplicativo mobile desenvolvido em **React Native**, integrado ao ecossistema moderno de desenvolvimento mobile.
+
+---
 ## ✨ Principais Funcionalidades
 
 - **👶 Guia por Faixa Etária:** Instruções específicas e diferenciadas para bebês (lactentes), crianças e adultos.
