@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "SOSEngasgo_ReactNative",
-    "slug": "SOSEngasgo_ReactNative",
+    "name": "SOSEngasgo",
+    "slug": "SOSEngasgo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
