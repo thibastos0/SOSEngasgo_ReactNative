@@ -1,14 +1,13 @@
 import {createStaticNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { WelcomeScreen }  from './src/screens/WelcomeScreen';
+
 
 const RootStack = createNativeStackNavigator({
   screens: {
-    Home: {
-      screen: HomeScreen,
-      options: {title: 'Bem-vindo ao SOSEngasgo!'},
-    },
-    Profile: {
-      screen: ProfileScreen,
+    Welcome: {
+      screen: WelcomeScreen,
+      options: {title: 'SOSEngasgo'},
     },
   },
 });
