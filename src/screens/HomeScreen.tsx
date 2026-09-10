@@ -28,3 +28,25 @@ export default function HomeScreen({ navigation }: any) {
         </View>
     );
 }
+
+const styles = StyleSheet.create({container: {
+        flex: 1,
+        backgroundColor: colors.background,
+        padding: 16,
+        paddingTop: 40,
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    headerLogo: {
+        fontSize: 18,
+        marginRight: 6,
+        color: colors.primary,
+    },
+    headerTitle: {
+        color: colors.primary,
+        fontWeight: 'bold',
+        fontSize: 16,
+    },});
