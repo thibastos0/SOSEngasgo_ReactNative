@@ -13,6 +13,10 @@ const RootStack = createNativeStackNavigator({
       screen: screens.LoginScreen,
       options: {title: 'Login'},
     },
+    Home: {
+      screen: screens.HomeScreen,
+      options: {title: 'Home'},
+    },
   },
 });
 

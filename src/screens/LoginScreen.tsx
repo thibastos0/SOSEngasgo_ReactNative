@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
 import { colors } from '../theme/colors';
 import CustomButton from '../components/CustomButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomInput from '../components/CustomInput';
 
-export default function LoginScreen({ navigation }: any) {
+export default function LoginScreen() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+
+    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
@@ -27,8 +30,16 @@ export default function LoginScreen({ navigation }: any) {
                 onChangeText={setSenha}
             />
 
-            <CustomButton title="Entrar" onClick={() => navigation.navigate('Home')} />
-            <CustomButton title="Entrar com o Google" variant="outline" onClick={() => {}} />
+            <CustomButton 
+                title="Entrar" 
+                onClick={() => navigation.navigate('Home')} 
+            />
+
+            <CustomButton 
+                title="Entrar com o Google" 
+                variant="outline" 
+                onClick={() => {}} 
+            />
 
             <Pressable onPress={() => navigation.navigate('Register')} style={styles.linkContainer}>
                 <Text style={styles.linkText}>Ainda não tem conta? Clique aqui</Text>
