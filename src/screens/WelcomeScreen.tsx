@@ -1,10 +1,13 @@
-import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { colors } from '../theme/colors';
 import CustomButton  from '../components/CustomButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export const WelcomeScreen = ({ navigation }: any) => {
+export default function WelcomeScreen () {
+
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>

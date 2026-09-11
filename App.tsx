@@ -1,19 +1,24 @@
-import {createStaticNavigation} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { WelcomeScreen }  from './src/screens/WelcomeScreen';
-import  HomeScreen  from './src/screens/HomeScreen';
+import { createStaticNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as screens from './src/screens';
 
 
 const RootStack = createNativeStackNavigator({
 
   screens: {
     Welcome: {
-      screen: WelcomeScreen,
-      options: {title: 'SOSEngasgo'},
+      screen: screens.WelcomeScreen,
+      options: { title: 'SOSEngasgo' },
+    },
+
+    Login: {
+      screen: screens.LoginScreen,
+      options: { title: 'Login' },
     },
     Home: {
-      screen: HomeScreen,
-      options: {title: 'SOSEngasgo'},
+      screen: screens.HomeScreen,
+      options: { title: 'Home' },
+
     },
   },
 });
