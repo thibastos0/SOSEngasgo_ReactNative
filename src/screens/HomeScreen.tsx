@@ -1,99 +1,50 @@
-import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '../theme/colors';
 import { globalStyles } from '../theme/globalStyles';
+import CustomEmergencyCard from '../components/CustomEmergencyCard';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 export default function HomeScreen({ navigation }: any) {
     return (
         <View style={globalStyles.containerTop}>
-            {/* Header */}
-            <View style={styles.header}>
-                <Text style={styles.headerLogo}>➕</Text>
-                <Text style={styles.headerTitle}>SOS Engasgo</Text>
+            <View style={ styles.header }>
+                <MaterialCommunityIcons
+                    name="hospital"
+                    style={ styles.icon }
+                />
+                <Text style={[globalStyles.titleMain, styles.title]}>SOS Engasgo</Text>
             </View>
 
-            {/* Cartão Central */}
-            <View style={globalStyles.card}>
-                <Text style={styles.cardTitle}>Emergência</Text>
-                <Text style={styles.cardSub}>Em caso de engasgo, pressione o botão abaixo imediatamente</Text>
+        <CustomEmergencyCard
+            cardTitle="Emergência"
+            cardSubTitle="Em caso de engasgo, pressione o botão abaixo imediatamente"
+            
+            onClick={() => navigation.navigate('ConfirmLocation')}        
+            buttonText="Acionar"
 
-                <Pressable 
-                    style={styles.botaoAcionar}
-                    onPress={() => navigation.navigate('ConfirmLocation')}
-                >
-                    <Text style={styles.textoAcionar}>ACIONAR</Text>
-                </Pressable>
+            cardFooter="Toque para acionar socorro."
+        />
 
-                <Text style={styles.cardFooter}>Toque para acionar socorro.</Text>
-            </View>
+            
         </View>
     );
 }
 
-const styles = StyleSheet.create({container: {
-        flex: 1,
-        backgroundColor: colors.background,
-        padding: 16,
-        paddingTop: 40,
-    },
+const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        marginBottom: 20,
     },
-    headerLogo: {
-        fontSize: 18,
-        marginRight: 6,
+    icon: {
         color: colors.primary,
+        marginRight: 10,
+        fontSize: 50,
+        marginBottom: 5,
     },
-    headerTitle: {
+    title: {
         color: colors.primary,
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-card: {
-        backgroundColor: colors.cardBackground,
-        borderRadius: 20,
-        padding: 24,
-        alignItems: 'center',
-        elevation: 4,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        marginTop: 20,
-    },
-    cardTitle: {
-        fontSize: 26,
-        fontWeight: 'bold',
-        color: colors.primary,
-        marginBottom: 10,
-    },
-    cardSub: {
-        fontSize: 14,
-        color: colors.textMuted,
-        textAlign: 'center',
-        marginBottom: 30,
-    },
-    botaoAcionar: {
-        width: 160,
-        height: 160,
-        borderRadius: 80,
-        backgroundColor: colors.primaryDark,
-        justifyContent: 'center',
-        alignItems: 'center',
-        elevation: 6,
-        shadowColor: '#000',
-        shadowOpacity: 0.2,
-        shadowRadius: 6,
-        marginBottom: 16,
-    },
-    textoAcionar: {
-        color: colors.white,
-        fontSize: 22,
-        fontWeight: 'bold',
-    },
-    cardFooter: {
-        fontSize: 12,
-        color: colors.textMuted,
+        marginBottom: 0,
     },
 });

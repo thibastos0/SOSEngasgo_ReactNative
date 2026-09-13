@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text,Pressable } from 'react-native';
-import { colors } from '../theme/colors';
 import CustomButton from '../components/CustomButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomInput from '../components/CustomInput';

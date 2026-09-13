@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '../theme/colors';
 import CustomButton  from '../components/CustomButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -11,12 +11,12 @@ export default function WelcomeScreen () {
 
   return (
     <View style={globalStyles.container}>
-      <View style={styles.content}>
+      <View style={globalStyles.logoContent}>
         {/* Ícone de Coração / Pulso */}
-        <View style={styles.logoContainer}>
+        <View style={globalStyles.logoContainer}>
           <MaterialCommunityIcons 
             name="heart-pulse"
-            style={styles.logoPlaceholder} />
+            style={globalStyles.logoPlaceholder} />
         </View>
 
         <Text style={globalStyles.title}>Bem-vindo ao SOS Engasgo</Text>
@@ -41,40 +41,8 @@ export default function WelcomeScreen () {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-    justifyContent: 'center',
-    padding: 24,
-  },
-  content: {
-    alignItems: 'center',
-    width: '100%',
-  },
-  logoContainer: {
-    marginBottom: 24,
-  },
-  logoPlaceholder: {
-    color: colors.primary,
-    fontSize: 100,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: colors.textMain,
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 14,
-    color: colors.textMuted,
-    textAlign: 'center',
-    marginBottom: 40,
-    paddingHorizontal: 16,
-    lineHeight: 20,
-  },
   buttonContainer: {
     width: '100%',
-    gap: 12,
+    gap: 4,
   },
 });

@@ -13,18 +13,6 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: colors.background,
     padding: 16,
     paddingTop: 40,
-},
-    containerSpaceBetween: {
-        flex: 1,
-        backgroundColor: colors.background,
-        padding: 24,
-        justifyContent: 'space-between',
-    },
-    containerScroll: {
-        flexGrow: 1,
-        backgroundColor: colors.background,
-        padding: 20,
-        alignItems: 'center',
     },
      title: {
         fontSize: 24,
@@ -34,7 +22,7 @@ export const globalStyles = StyleSheet.create({
         marginBottom: 32,
     },
     titleMain: {
-        fontSize: 24,
+        fontSize: 16,
         fontWeight: 'bold',
         color: colors.textMain,
         textAlign: 'center',
@@ -48,17 +36,13 @@ export const globalStyles = StyleSheet.create({
         paddingHorizontal: 16,
         lineHeight: 20,
     },
-    card: {
-        backgroundColor: colors.cardBackground,
-        borderRadius: 16,
-        padding: 20,
+    logoContainer: {
+        marginBottom: 32,
+    },
+    logoContent: {
         alignItems: 'center',
+        justifyContent: 'center',
         width: '100%',
-        elevation: 3,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        marginBottom: 16,
     },
     logoPlaceholder: {
         color: colors.primary,
