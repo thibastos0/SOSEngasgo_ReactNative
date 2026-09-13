@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { colors } from '../theme/colors';
+import { globalStyles } from '../theme/globalStyles';
 
 export default function HomeScreen({ navigation }: any) {
     return (
-        <View style={styles.container}>
+        <View style={globalStyles.containerTop}>
             {/* Header */}
             <View style={styles.header}>
                 <Text style={styles.headerLogo}>➕</Text>
@@ -12,7 +13,7 @@ export default function HomeScreen({ navigation }: any) {
             </View>
 
             {/* Cartão Central */}
-            <View style={styles.card}>
+            <View style={globalStyles.card}>
                 <Text style={styles.cardTitle}>Emergência</Text>
                 <Text style={styles.cardSub}>Em caso de engasgo, pressione o botão abaixo imediatamente</Text>
 

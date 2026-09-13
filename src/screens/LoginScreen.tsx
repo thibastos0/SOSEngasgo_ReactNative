@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
+import { View, Text,Pressable } from 'react-native';
 import { colors } from '../theme/colors';
 import CustomButton from '../components/CustomButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomInput from '../components/CustomInput';
+import { globalStyles } from '../theme/globalStyles';
 
 export default function LoginScreen() {
     const [email, setEmail] = useState('');
@@ -13,10 +14,10 @@ export default function LoginScreen() {
     const navigation = useNavigation();
 
     return (
-        <View style={styles.container}>
+        <View style={globalStyles.container}>
             <MaterialCommunityIcons 
             	name="heart-pulse"
-            	style={styles.logoPlaceHolder} />
+            	style={globalStyles.logoPlaceholder} />
             
             <CustomInput
                 placeholder="Usuário (E-mail)"
@@ -41,32 +42,10 @@ export default function LoginScreen() {
                 onClick={() => {}} 
             />
 
-            <Pressable onPress={() => navigation.navigate('Register')} style={styles.linkContainer}>
-                <Text style={styles.linkText}>Ainda não tem conta? Clique aqui</Text>
+            <Pressable onPress={() => navigation.navigate('Register')} style={globalStyles.linkContainer}>
+                <Text style={globalStyles.linkText}>Ainda não tem conta? Clique aqui</Text>
             </Pressable>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.background,
-        justifyContent: 'center',
-        padding: 24,
-    },
-    logoPlaceHolder: {
-    	color: colors.primary,
-    	fontSize: 100,
-        textAlign: 'center',
-        marginBottom: 32,
-    },
-    linkContainer: {
-        marginTop: 20,
-        alignItems: 'center',
-    },
-    linkText: {
-        color: colors.textMuted,
-        fontSize: 14,
-    },
-});

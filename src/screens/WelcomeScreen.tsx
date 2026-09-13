@@ -3,13 +3,14 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { colors } from '../theme/colors';
 import CustomButton  from '../components/CustomButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { globalStyles } from '../theme/globalStyles';
 
 export default function WelcomeScreen () {
 
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <View style={styles.content}>
         {/* Ícone de Coração / Pulso */}
         <View style={styles.logoContainer}>
@@ -18,8 +19,8 @@ export default function WelcomeScreen () {
             style={styles.logoPlaceholder} />
         </View>
 
-        <Text style={styles.title}>Bem-vindo ao SOS Engasgo</Text>
-        <Text style={styles.subtitle}>
+        <Text style={globalStyles.title}>Bem-vindo ao SOS Engasgo</Text>
+        <Text style={globalStyles.subtitle}>
           Um sistema pensado para emergências infantis — rápido, simples e seguro.
         </Text>
 
