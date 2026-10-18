@@ -15,6 +15,10 @@ const RootStack = createNativeStackNavigator({
       screen: screens.LoginScreen,
       options: { title: 'Login' },
     },
+    Register: {
+      screen: screens.RegisterScreen,
+      options: { title: 'Cadastro' },
+    },
     Home: {
       screen: screens.HomeScreen,
       options: { title: 'Home' },

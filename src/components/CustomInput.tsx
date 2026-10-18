@@ -1,13 +1,14 @@
-import { TextInput, StyleSheet, View } from 'react-native';
+import { TextInput, TextInputProps, StyleSheet, View } from 'react-native';
 import { colors } from '../theme/colors';
 
-export default function CustomInput({placeholder}: any) {
+export default function CustomInput({ placeholder, ...rest }: TextInputProps) {
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder={placeholder}
-        placeholderTextColor={colors.borderInput}     
+        placeholderTextColor={colors.borderInput}
+        {...rest}
       />
     </View>
   );
