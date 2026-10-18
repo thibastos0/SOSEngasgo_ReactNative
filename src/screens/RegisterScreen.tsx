@@ -77,18 +77,25 @@ export default function RegisterScreen() {
                     placeholder="nome@exemplo.com"
                     keyboardType="email-address"
                     autoCapitalize="none"
+                    autoCorrect={false}
+                    textContentType="emailAddress"
+                    autoComplete="email"
                     value={email}
                     onChangeText={setEmail}
                 />
                 <CustomInput
                     placeholder="Sua senha"
                     secureTextEntry
+                    textContentType="password"
+                    autoComplete="password"
                     value={senha}
                     onChangeText={setSenha}
                 />
                 <CustomInput
                     placeholder="Confirme sua senha"
                     secureTextEntry
+                    textContentType="password"
+                    autoComplete="password"
                     value={confirmarSenha}
                     onChangeText={setConfirmarSenha}
                 />
