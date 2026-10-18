@@ -4,7 +4,10 @@ import {
     KeyboardAvoidingView, 
     Text, 
     Platform, 
-    ScrollView } from 'react-native';
+    ScrollView, 
+    Keyboard,
+    Alert
+} from 'react-native';
 import CustomButton from '../components/CustomButton';
 import CustomInput from '../components/CustomInput';
 import { globalStyles } from '../theme/globalStyles';
@@ -18,8 +21,36 @@ export default function RegisterScreen() {
     const navigation = useNavigation();
 
     const handleRegister = () => {
-        // Mock de submissão de cadastro
-        console.log('Dados cadastrados:', { nome, email });
+        Keyboard.dismiss();
+
+        if (!nome.trim() || !email.trim() || !senha.trim() || !confirmarSenha.trim()) {
+            const errorMsg = 'Por favor, preencha todos os campos.';
+            if (Platform.OS === 'web') {
+                window.alert(errorMsg);
+            } else {
+                Alert.alert('Atenção', errorMsg);
+            }
+            return;
+        }
+
+        if (senha !== confirmarSenha) {
+            const errorMsg = 'As senhas não coincidem.';
+            if (Platform.OS === 'web') {
+                window.alert(errorMsg);
+            } else {
+                Alert.alert('Atenção', errorMsg);
+            }
+            return;
+        }
+
+        const successMsg = 'Usuário cadastrado com sucesso!';
+        if (Platform.OS === 'web') {
+            window.alert(successMsg);
+        } else {
+            Alert.alert('Sucesso', successMsg);
+        }
+
+        navigation.goBack();
     };
 
     return (
@@ -31,7 +62,10 @@ export default function RegisterScreen() {
                     : undefined
             }
         >
-            <ScrollView>
+            <ScrollView
+                keyboardShouldPersistTaps="handled"
+                contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+            >
                 <Text style={globalStyles.title}>Cadastrar Usuário</Text>
 
                 <CustomInput
@@ -67,7 +101,10 @@ export default function RegisterScreen() {
                 <CustomButton
                     title="Cancelar"
                     variant="outline"
-                    onClick={() => navigation.goBack()}
+                    onClick={() => {
+                        Keyboard.dismiss();
+                        navigation.goBack();
+                    }}
                 />
             </ScrollView>
         </KeyboardAvoidingView>
