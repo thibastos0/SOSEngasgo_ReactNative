@@ -1,16 +1,18 @@
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { View, Text,Pressable } from 'react-native';
+import { 
+    View, 
+    Text,
+    Pressable } from 'react-native';
+
 import CustomButton from '../components/CustomButton';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomInput from '../components/CustomInput';
 import { globalStyles } from '../theme/globalStyles';
 
-export default function LoginScreen() {
+import { useState } from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+export default function LoginScreen( props: any ) {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-
-    const navigation = useNavigation();
 
     return (
         <View style={globalStyles.container}>
@@ -30,19 +32,25 @@ export default function LoginScreen() {
                 onChangeText={setSenha}
             />
 
-            <CustomButton 
+            <CustomButton
+                variant="primary"
                 title="Entrar" 
-                onClick={() => navigation.navigate('Home')} 
+                navigateTo={props.navigation.navigate}
+                targetScreen="Home"
             />
 
             <CustomButton 
-                title="Entrar com o Google" 
                 variant="outline" 
-                onClick={() => {}} 
+                title="Entrar com o Google" 
+                navigateTo={() => {}} //TODO: Implementar login com Google
             />
 
-            <Pressable onPress={() => navigation.navigate('Register')} style={globalStyles.linkContainer}>
-                <Text style={globalStyles.linkText}>Ainda não tem conta? Clique aqui</Text>
+            <Pressable 
+                onPress={() => props.navigation.navigate('Register')} 
+                style={globalStyles.linkContainer}>
+                <Text style={globalStyles.linkText}>
+                    Ainda não tem conta? Clique aqui
+                </Text>
             </Pressable>
         </View>
     );
