@@ -1,35 +1,27 @@
 import { Pressable, Text, StyleSheet, View } from "react-native";
 import { colors } from "../theme/colors";
 
-interface CardButtonProps {
-    cardTitle: string;
-    onClick?: () => void;
-    cardSubTitle?: string;
-    buttonText?: string;
-    cardFooter?: string;
-}
-
-export default function CustomEmergencyCard({ 
-    cardTitle, 
-    cardSubTitle, 
-    onClick,
-    buttonText,
-    cardFooter
-}: CardButtonProps) {
+export default function CustomEmergencyCard(props: any) {
 
     return (
         <View style={styles.card}>
-            <Text style={styles.cardTitle}>{cardTitle}</Text>
-            <Text style={styles.cardSub}>{cardSubTitle}</Text>
+            <Text style={styles.cardTitle}>{props.cardTitle}</Text>
+            <Text style={styles.cardSub}>{props.cardSubTitle}</Text>
 
             <Pressable 
                 style={styles.botaoAcionar}
-                onPress={onClick}
+                onPress={() => {
+                    if (props.navigateTo && props.targetScreen) {
+                        props.navigateTo(props.targetScreen);
+                    } else if (props.navigateTo) {
+                        props.navigateTo();
+                    }
+                }}
             >                    
-                <Text style={styles.textoAcionar}>{buttonText}</Text>
+                <Text style={styles.textoAcionar}>{props.buttonText}</Text>
             </Pressable>
 
-            <Text style={styles.cardFooter}>{cardFooter}</Text>
+            <Text style={styles.cardFooter}>{props.cardFooter}</Text>
         </View>
     );
 }

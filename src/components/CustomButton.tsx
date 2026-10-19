@@ -1,22 +1,23 @@
 import { Pressable, Text, StyleSheet } from "react-native";
 import { colors } from "../theme/colors";
 
-interface ButtonProps {
-    title: string;
-    onClick?: () => void;
-    variant?: 'primary' | 'outline';
-}
 
-export default function CustomButton({ title, onClick, variant = 'primary' }: ButtonProps) {
-    const isPrimary = variant === 'primary';
+export default function CustomButton(props: any) {
+    const isPrimary = props.variant === 'primary';
 
     return (
         <Pressable 
             style={[styles.botao, isPrimary ? styles.primario : styles.outline]} 
-            onPress={onClick}
+            onPress={() => {
+                if (props.navigateTo && props.targetScreen) {
+                    props.navigateTo(props.targetScreen);
+                } else if (props.navigateTo) {
+                    props.navigateTo();
+                }
+            }}
         >
             <Text style={[styles.textoBotao, isPrimary ? styles.textoPrimario : styles.textoOutline]}>
-                {title}
+                {props.title}
             </Text>
         </Pressable>
     );

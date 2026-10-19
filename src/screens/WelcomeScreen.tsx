@@ -1,17 +1,20 @@
-import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet } from 'react-native';
-import { colors } from '../theme/colors';
+import { 
+  View, 
+  Text, 
+  StyleSheet } from 'react-native';
+
 import CustomButton  from '../components/CustomButton';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { globalStyles } from '../theme/globalStyles';
 
-export default function WelcomeScreen () {
 
-  const navigation = useNavigation();
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+export default function WelcomeScreen (props: any) {
 
   return (
     <View style={globalStyles.container}>
       <View style={globalStyles.logoContent}>
+
         {/* Ícone de Coração / Pulso */}
         <View style={globalStyles.logoContainer}>
           <MaterialCommunityIcons 
@@ -25,16 +28,23 @@ export default function WelcomeScreen () {
         </Text>
 
         <View style={styles.buttonContainer}>
+
           <CustomButton
+            variant="primary"
             title="Entrar"
-            onClick={() => navigation.navigate('Login')}
+            navigateTo={props.navigation.navigate}
+            targetScreen="Login"
           />
+
           <CustomButton
-            title="Criar cadastro"
             variant="outline"
-            onClick={() => navigation.navigate('Register')}
+            title="Criar cadastro"
+            navigateTo={props.navigation.navigate}
+            targetScreen="Register"
           />
+
         </View>
+
       </View>
     </View>
   );

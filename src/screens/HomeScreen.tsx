@@ -1,11 +1,16 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { 
+    View, 
+    Text, 
+    StyleSheet } from 'react-native';
+
 import { colors } from '../theme/colors';
 import { globalStyles } from '../theme/globalStyles';
 import CustomEmergencyCard from '../components/CustomEmergencyCard';
+
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
-export default function HomeScreen({ navigation }: any) {
+export default function HomeScreen( props: any) {
     return (
         <View style={globalStyles.containerTop}>
             <View style={ styles.header }>
@@ -19,8 +24,8 @@ export default function HomeScreen({ navigation }: any) {
         <CustomEmergencyCard
             cardTitle="Emergência"
             cardSubTitle="Em caso de engasgo, pressione o botão abaixo imediatamente"
-            
-            onClick={() => navigation.navigate('ConfirmLocation')}        
+            navigateTo={props.navigation.navigate}
+            targetScreen="ConfirmLocation"
             buttonText="Acionar"
 
             cardFooter="Toque para acionar socorro."

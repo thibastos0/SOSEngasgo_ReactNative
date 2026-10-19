@@ -9,10 +9,20 @@ export const globalStyles = StyleSheet.create({
         justifyContent: 'center',
     },
     containerTop: {
-    flex: 1,
-    backgroundColor: colors.background,
-    padding: 16,
-    paddingTop: 40,
+        flex: 1,
+        backgroundColor: colors.background,
+        padding: 16,
+        paddingTop: 40,
+    },
+    containerSpaceBetween: {
+        flex: 1,
+        backgroundColor: colors.background,
+        padding: 24,
+        justifyContent: 'space-between',
+    },
+    buttonContainer: {
+        width: '100%',
+        marginBottom: 8,
     },
      title: {
         fontSize: 24,

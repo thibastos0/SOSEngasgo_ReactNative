@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { 
     KeyboardAvoidingView, 
     Text, 
@@ -8,17 +6,18 @@ import {
     Keyboard,
     Alert
 } from 'react-native';
+
 import CustomButton from '../components/CustomButton';
 import CustomInput from '../components/CustomInput';
 import { globalStyles } from '../theme/globalStyles';
 
-export default function RegisterScreen() {
+import { useState } from 'react';
+
+export default function RegisterScreen(props: any) {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
-
-    const navigation = useNavigation();
 
     const handleRegister = () => {
         Keyboard.dismiss();
@@ -50,7 +49,7 @@ export default function RegisterScreen() {
             Alert.alert('Sucesso', successMsg);
         }
 
-        navigation.goBack();
+        props.navigation.goBack();
     };
 
     return (
@@ -101,16 +100,17 @@ export default function RegisterScreen() {
                 />
 
                 <CustomButton
+                    variant="primary"
                     title="Salvar"
-                    onClick={handleRegister}
+                    navigateTo={handleRegister}
                 />
 
                 <CustomButton
                     title="Cancelar"
                     variant="outline"
-                    onClick={() => {
+                    navigateTo={() => {
                         Keyboard.dismiss();
-                        navigation.goBack();
+                        props.navigation.goBack();
                     }}
                 />
             </ScrollView>
