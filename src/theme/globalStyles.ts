@@ -24,6 +24,17 @@ export const globalStyles = StyleSheet.create({
         width: '100%',
         marginBottom: 8,
     },
+    card: {
+        backgroundColor: colors.cardBackground,
+        borderRadius: 16,
+        padding: 16,
+        marginVertical: 12,
+        width: '100%',
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+    },
      title: {
         fontSize: 24,
         fontWeight: 'bold',

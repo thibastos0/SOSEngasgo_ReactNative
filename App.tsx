@@ -40,6 +40,12 @@ export default function App() {
           component={screens.ConfirmLocationScreen} 
           options={{ title: 'Confirmar Localização' }} 
         />
+
+        <Stack.Screen 
+          name="EmergencyScreen" 
+          component={screens.EmergencyScreen} 
+          options={{ title: 'Socorro em Andamento' }} 
+        />
       
       </Stack.Navigator>
     </NavigationContainer>
