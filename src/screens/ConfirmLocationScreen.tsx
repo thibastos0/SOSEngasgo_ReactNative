@@ -6,7 +6,9 @@ import {
 import { globalStyles } from '../theme/globalStyles';
 import CustomButton from '../components/CustomButton';
 import CustomMockMap from '../components/CustomMockMap';
+
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 export default function ConfirmLocationScreen( props: any ) {
 
@@ -34,7 +36,12 @@ export default function ConfirmLocationScreen( props: any ) {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <View style={globalStyles.containerTop}>
+
+            <Header
+                title="Confirmar Localização"
+                showBack={true}
+            />
 
             <View style={globalStyles.containerSpaceBetween}>
             
@@ -45,7 +52,7 @@ export default function ConfirmLocationScreen( props: any ) {
                         title="Sim, Chamar Socorro"
                         variant="primary"
                         navigateTo={props.navigation.navigate}
-                        targetScreen="EmergencyScreen"
+                        targetScreen="Emergency"
                     />
                     <CustomButton
                         title="Não, Cancelar Acionamento"

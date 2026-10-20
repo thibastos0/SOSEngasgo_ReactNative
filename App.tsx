@@ -1,54 +1,11 @@
-import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+
 import * as screens from './src/screens';
-import Header from './src/components/Header';
-import Footer from './src/components/Footer';
-import { globalStyles } from './src/theme/globalStyles';
 
 const Drawer = createDrawerNavigator();
 const RootStack = createNativeStackNavigator();
-
-function TrainingScreen(props: any) {
-  return (
-    <View style={globalStyles.container}>
-      <Header
-        title="Treinamento"
-        showMenuButton
-        showAuthButton
-        navigation={props.navigation}
-      />
-      <View style={globalStyles.content}>
-        <Text style={globalStyles.title}>Treinamento</Text>
-        <Text style={globalStyles.subtitle}>
-          Módulo de treinamento em desenvolvimento.
-        </Text>
-      </View>
-      <Footer />
-    </View>
-  );
-}
-
-function OrientationsScreen(props: any) {
-  return (
-    <View style={globalStyles.container}>
-      <Header
-        title="Orientações"
-        showMenuButton
-        showAuthButton
-        navigation={props.navigation}
-      />
-      <View style={globalStyles.content}>
-        <Text style={globalStyles.title}>Orientações</Text>
-        <Text style={globalStyles.subtitle}>
-          Guia rápido de orientações de primeiros socorros em desenvolvimento.
-        </Text>
-      </View>
-      <Footer />
-    </View>
-  );
-}
 
 function DrawerNavigator() {
   return (
@@ -63,18 +20,13 @@ function DrawerNavigator() {
       />
       <Drawer.Screen
         name="Training"
-        component={TrainingScreen}
-        options={{ title: 'Treinamento' }}
+        component={screens.TrainingScreen}
+        options={{ title: 'Treinamentos' }}
       />
       <Drawer.Screen
         name="Orientations"
-        component={OrientationsScreen}
+        component={screens.OrientationsScreen}
         options={{ title: 'Orientações' }}
-      />
-      <Drawer.Screen
-        name="Login"
-        component={screens.LoginScreen}
-        options={{ title: 'Login' }}
       />
     </Drawer.Navigator>
   );
@@ -82,36 +34,27 @@ function DrawerNavigator() {
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer navigationInChildEnabled>
       <RootStack.Navigator
-        initialRouteName="MainDrawer"
+        initialRouteName="DrawerRoot"
         screenOptions={{ headerShown: false }}
       >
         <RootStack.Screen
-          name="MainDrawer"
+          name="DrawerRoot"
           component={DrawerNavigator}
         />
-
-        <RootStack.Screen
-          name="ConfirmLocationScreen"
-          component={screens.ConfirmLocationScreen}
-        />
-
         <RootStack.Screen
           name="ConfirmLocation"
           component={screens.ConfirmLocationScreen}
         />
-
         <RootStack.Screen
-          name="EmergencyScreen"
+          name="Emergency"
           component={screens.EmergencyScreen}
         />
-
         <RootStack.Screen
-          name="RegisterScreen"
-          component={screens.RegisterScreen}
+          name="Login"
+          component={screens.LoginScreen}
         />
-
         <RootStack.Screen
           name="Register"
           component={screens.RegisterScreen}

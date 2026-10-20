@@ -7,11 +7,15 @@ import {
     KeyboardAvoidingView,
     StyleSheet,
 } from 'react-native';
+
 import { globalStyles } from '../theme/globalStyles';
 import { colors } from '../theme/colors';
+
 import CustomButton from '../components/CustomButton';
 import ManeuverCard from '../components/ManeuverCard';
+
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 export default function EmergencyScreen(props: any) {
     const handleFinish = () => {
@@ -39,9 +43,15 @@ export default function EmergencyScreen(props: any) {
 
     return (
         <KeyboardAvoidingView
-            style={globalStyles.container}
+            style={globalStyles.containerTop}
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
+
+            <Header
+                title="Socorro em Andamento"
+                showBack={true}
+            />
+
             <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }}>
                 <View>
                     <Text style={styles.alertTitle}>SOCORRO ACIONADO!</Text>

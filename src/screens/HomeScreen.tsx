@@ -1,27 +1,21 @@
 import { 
-    View, 
-    Text, 
-    StyleSheet } from 'react-native';
+    View,} from 'react-native';
 
-import { colors } from '../theme/colors';
 import { globalStyles } from '../theme/globalStyles';
 import CustomEmergencyCard from '../components/CustomEmergencyCard';
+
+import Header from '../components/Header';
 import Footer from '../components/Footer';
-
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-
 
 export default function HomeScreen( props: any) {
     return (
         <View style={globalStyles.containerTop}>
-            <View style={ styles.header }>
-                <MaterialCommunityIcons
-                    name="hospital"
-                    style={ styles.icon }
-                />
-                <Text style={[globalStyles.titleMain, styles.title]}>SOS Engasgo</Text>
-            </View>
+
+            <Header
+                title="SOS Engasgo"
+                showMenu={true}
+                showAuth={true}
+            />
 
             <CustomEmergencyCard
                 cardTitle="Emergência"
@@ -38,21 +32,3 @@ export default function HomeScreen( props: any) {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-    },
-    icon: {
-        color: colors.primary,
-        marginRight: 10,
-        fontSize: 50,
-        marginBottom: 5,
-    },
-    title: {
-        color: colors.primary,
-        marginBottom: 0,
-    },
-});
