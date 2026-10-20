@@ -10,7 +10,6 @@ export default function CustomMockMap(props: any) {
     return (
 
         <View>
-            <Text style={styles.title}>Confirmar Localização</Text>
 
             <View style={styles.mapBox}>
                 <MaterialCommunityIcons
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
         marginBottom: 24,
     },
     mapBox: {
-        height: 180,
+        height: 240,
         backgroundColor: '#EAEAEA',
         borderRadius: 12,
         justifyContent: 'center',

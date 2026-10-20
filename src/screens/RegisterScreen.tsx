@@ -9,7 +9,10 @@ import {
 
 import CustomButton from '../components/CustomButton';
 import CustomInput from '../components/CustomInput';
+
 import Footer from '../components/Footer';
+import Header from '../components/Header';
+
 import { globalStyles } from '../theme/globalStyles';
 
 import { useState } from 'react';
@@ -55,13 +58,19 @@ export default function RegisterScreen(props: any) {
 
     return (
         <KeyboardAvoidingView
-            style={globalStyles.container}
+            style={globalStyles.containerTop}
             behavior={
                 Platform.OS === 'ios' 
                     ? 'padding' 
                     : undefined
             }
         >
+
+            <Header
+                title="Cadastro"
+                showBack={true}
+            />
+
             <ScrollView
                 keyboardShouldPersistTaps="handled"
                 contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}

@@ -1,11 +1,18 @@
-import { Pressable, Text, StyleSheet, View } from "react-native";
+import { 
+    Pressable,
+     Text, 
+     StyleSheet, 
+     View } from "react-native";
+
 import { colors } from "../theme/colors";
 
 export default function CustomEmergencyCard(props: any) {
 
     return (
         <View style={styles.card}>
-            <Text style={styles.cardTitle}>{props.cardTitle}</Text>
+            <Text style={styles.cardTitle}>
+                {props.cardTitle}
+            </Text>
             <Text style={styles.cardSub}>{props.cardSubTitle}</Text>
 
             <Pressable 

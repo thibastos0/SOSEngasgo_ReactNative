@@ -5,6 +5,8 @@ import {
 
 import CustomButton from '../components/CustomButton';
 import CustomInput from '../components/CustomInput';
+
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 import { globalStyles } from '../theme/globalStyles';
@@ -17,7 +19,13 @@ export default function LoginScreen( props: any ) {
     const [senha, setSenha] = useState('');
 
     return (
-        <View style={globalStyles.container}>
+        <View style={globalStyles.containerTop}>
+
+            <Header
+                title="Entrar"
+                showBack={true}
+            />
+
             <MaterialCommunityIcons 
             	name="heart-pulse"
             	style={globalStyles.logoPlaceholder} />
