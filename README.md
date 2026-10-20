@@ -7,47 +7,57 @@
 [![Expo SDK](https://img.shields.io/badge/Expo%20SDK-57-000020?style=for-the-badge&logo=expo&logoColor=white)](https://docs.expo.dev/versions/v57.0.0/)
 [![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-orange?style=for-the-badge)](https://github.com/thibastos0/SOSEngasgo_ReactNative)
 
-*Aplicativo mobile de orientações de primeiros socorros para casos de engasgo, desenvolvido como Projeto Integrador na **Fatec Indaiatuba** (Curso Superior de Tecnologia em Desenvolvimento de Software Multiplataforma - DSM).*
+*Aplicativo mobile de apoio em situações de engasgo, desenvolvido como Projeto Integrador na **Fatec Indaiatuba** (Curso Superior de Tecnologia em Desenvolvimento de Software Multiplataforma - DSM).*
 
 </div>
 
 ---
 
-## 💡 Sobre o Projeto
+## 💡 Sobre o projeto
 
-O **SOS Engasgo** é uma ferramenta de suporte rápido e acessível criada para orientar qualquer pessoa a agir de forma correta e imediata em situações de engasgo (obstrução de vias aéreas por corpo estranho - OVACE). Em momentos críticos, cada segundo conta; por isso, o aplicativo foi projetado com foco em **clareza, rapidez e acessibilidade visual**, atendendo diferentes faixas etárias (bebês, crianças e adultos).
+O **SOS Engasgo** é um protótipo de suporte rápido para orientar o usuário durante uma emergência de engasgo. O aplicativo prioriza uma interface simples, botões de ação destacados e instruções objetivas para reduzir o tempo de resposta em uma situação crítica.
 
-Este repositório contém o aplicativo mobile desenvolvido em **React Native** com **Expo SDK 57**. O projeto está em desenvolvimento e, neste momento, apresenta a tela inicial e a base de navegação.
+O fluxo atualmente implementado é:
 
----
-## ✨ Objetivos do Aplicativo
+1. Tela de boas-vindas, com acesso ao login ou ao cadastro.
+2. Login demonstrativo, que direciona para a tela inicial.
+3. Cadastro local demonstrativo, com validação de campos obrigatórios e confirmação de senha.
+4. Tela inicial com o botão de acionamento de emergência.
+5. Confirmação do local, representada atualmente por um mapa simulado.
+6. Tela de socorro acionado, com instruções da Manobra de Heimlich.
+7. Encerramento do atendimento com confirmação antes de retornar à tela inicial.
 
-- **👶 Guia por Faixa Etária:** Instruções específicas e diferenciadas para bebês (lactentes), crianças e adultos.
-- **⏱️ Passo a Passo Visual:** Sequências claras de procedimentos (Manobra de Heimlich, tapenagens nas costas, etc.) ilustradas para fácil compreensão sob pressão.
-- **📞 Acesso Rápido à Emergência:** Botão de discagem direta para serviços de socorro médico (SAMU - 192).
-- **♿ Foco em Acessibilidade:** Interface intuitiva com alto contraste, fontes legíveis e navegação simplificada.
-- **🌐 Arquitetura Multiplataforma:** Desenvolvido com React Native e Expo para garantir alta performance no Android e iOS.
+> **Nota:** o login, o cadastro, a localização e o mapa ainda são demonstrativos. Não há integração com backend, autenticação real, geolocalização, Google Maps ou acionamento efetivo de serviços de emergência.
 
----
+## ✨ Funcionalidades implementadas
 
-## 🛠️ Tecnologias Utilizadas
+- **Fluxo de boas-vindas:** entrada para login e criação de cadastro.
+- **Login demonstrativo:** campos de e-mail e senha e opção visual de login com Google.
+- **Cadastro de usuário:** campos de nome, e-mail, senha e confirmação de senha.
+- **Validação do cadastro:** impede o envio de campos vazios e senhas diferentes, exibindo mensagens de alerta.
+- **Acionamento de emergência:** cartão de emergência com botão circular em destaque.
+- **Confirmação antes do socorro:** tela com mapa simulado e opções para confirmar ou cancelar o acionamento.
+- **Orientação de primeiros socorros:** cartão com instruções textuais da Manobra de Heimlich e espaço reservado para ilustração.
+- **Cancelamento seguro:** confirma o cancelamento do acionamento e o encerramento do atendimento.
+- **Compatibilidade multiplataforma:** execução prevista para Android, iOS e Web por meio do Expo.
+- **Interface reutilizável:** botões, campos de entrada, cartões e estilos compartilhados.
 
-Este projeto faz parte do stack de desenvolvimento multiplataforma do curso de DSM da Fatec Indaiatuba:
+## 🛠️ Tecnologias utilizadas
 
-* **[Expo SDK 57](https://docs.expo.dev/versions/v57.0.0/)** - Plataforma e conjunto de ferramentas para desenvolvimento React Native.
-* **[React Native 0.86](https://reactnative.dev/)** - Framework para construção da interface nativa.
-* **[React 19](https://react.dev/)** - Biblioteca base da interface.
-* **[TypeScript 6](https://www.typescriptlang.org/)** - Tipagem estática para o projeto.
-* **[React Navigation 7](https://reactnavigation.org/)** - Navegação entre telas.
-* **[@expo/vector-icons](https://docs.expo.dev/guides/icons/)** - Ícones da interface.
+- **[Expo SDK 57](https://docs.expo.dev/versions/v57.0.0/)** - Plataforma e ferramentas para desenvolvimento React Native.
+- **[React Native 0.86](https://reactnative.dev/)** - Framework para construção da interface nativa.
+- **[React 19](https://react.dev/)** - Biblioteca base da interface.
+- **[TypeScript 6](https://www.typescriptlang.org/)** - Tipagem estática do projeto.
+- **[React Navigation 7](https://reactnavigation.org/)** - Navegação entre as telas.
+- **[@expo/vector-icons](https://docs.expo.dev/guides/icons/)** - Ícones usados na interface.
 
-## 🚀 Como Executar
+## 🚀 Como executar
 
 ### Pré-requisitos
 
 - Node.js instalado (versão LTS recomendada).
 - npm, instalado junto com o Node.js.
-- Expo Go no dispositivo físico ou um emulador Android/iOS configurado.
+- Expo Go em um dispositivo físico ou um emulador Android/iOS configurado.
 
 ### Instalação
 
@@ -73,47 +83,73 @@ npm run ios
 npm run web
 ```
 
-Se o Metro apresentar algum cache desatualizado após uma alteração de dependências, reinicie-o com:
+Para reiniciar o Metro limpando o cache:
 
 ```bash
 npx expo start -c
 ```
 
-## 📌 Estado Atual
+## 📌 Estado atual
 
-- A tela `WelcomeScreen` está registrada na navegação principal.
-- O componente reutilizável `CustomButton` e o tema de cores estão disponíveis.
-- As telas de login e cadastro ainda estão em implementação.
-- Os guias de primeiros socorros e o acesso rápido ao SAMU fazem parte do escopo planejado.
+O aplicativo possui a navegação principal configurada no `App.tsx` com as seguintes rotas:
 
----
+| Rota | Tela | Objetivo |
+| --- | --- | --- |
+| `Welcome` | Boas-vindas | Apresentar o app e oferecer login ou cadastro |
+| `Login` | Login | Receber e-mail e senha de forma demonstrativa |
+| `Register` | Cadastro | Validar e cadastrar os dados preenchidos localmente |
+| `Home` | Início | Exibir o acionamento de emergência |
+| `ConfirmLocation` | Confirmar localização | Exibir o endereço/mapa simulado e confirmar a chamada |
+| `EmergencyScreen` | Socorro em andamento | Exibir orientações e permitir encerrar o atendimento |
 
-## 📂 Estrutura do Projeto
-```
+As telas são funcionais no fluxo de navegação, mas as integrações externas ainda não foram conectadas.
+
+## 📂 Estrutura do projeto
+
+```text
 SOSEngasgo_ReactNative/
-├── assets/                   # Ícones, splash screen e favicon
+├── assets/                         # Ícones, splash screen e favicon
 ├── src/
-│   ├── components/           # Componentes reutilizáveis
-│   │   └── CustomButton.tsx
-│   ├── screens/              # Telas do aplicativo
-│   │   └── WelcomeScreen.tsx
-│   └── theme/                # Cores e estilos compartilhados
-│       └── colors.ts
-├── App.tsx                   # Navegação principal e ponto de entrada
-├── app.json                  # Configurações do Expo
-├── index.ts                  # Registro da aplicação
-├── package.json              # Scripts e dependências
-└── tsconfig.json             # Configuração do TypeScript
+│   ├── components/                 # Componentes reutilizáveis
+│   │   ├── CustomButton.tsx        # Botão primário e outline
+│   │   ├── CustomEmergencyCard.tsx # Cartão de acionamento
+│   │   ├── CustomInput.tsx         # Campo de entrada padronizado
+│   │   ├── CustomMockMap.tsx       # Mapa ilustrativo para confirmação
+│   │   └── ManeuverCard.tsx        # Cartão de instruções de primeiros socorros
+│   ├── screens/                    # Telas e definição das exportações
+│   │   ├── WelcomeScreen.tsx
+│   │   ├── LoginScreen.tsx
+│   │   ├── RegisterScreen.tsx
+│   │   ├── HomeScreen.tsx
+│   │   ├── ConfirmLocationScreen.tsx
+│   │   ├── EmergencyScreen.tsx
+│   │   └── index.ts
+│   └── theme/                      # Cores e estilos compartilhados
+│       ├── colors.ts
+│       └── globalStyles.ts
+├── App.tsx                         # Navegação principal
+├── app.json                        # Configurações do Expo
+├── index.ts                        # Registro da aplicação
+├── package.json                    # Scripts e dependências
+└── tsconfig.json                   # Configuração do TypeScript
 ```
----
 
-## 🎯 Orientações para Padronização de Commits
+## 🔜 Próximos passos
 
-Para manter o histórico de alterações limpo e organizado, seguimos o padrão de Conventional Commits:
+- Integrar autenticação e persistência de usuários.
+- Adicionar geolocalização e mapa real.
+- Integrar o acionamento com o serviço de emergência apropriado.
+- Substituir os espaços reservados por ilustrações verificadas das manobras.
+- Expandir as orientações para bebês, crianças e adultos.
+- Adicionar testes automatizados para validações e fluxos de navegação.
 
-- **feat:** Criação de um novo recurso ou funcionalidade.
-- **fix:** Correção de um erro (bug).
-- **docs:** Mudanças apenas na documentação. 
-- **refactor:** Alteração de código que não corrige erros nem cria recursos (ex: limpeza).
-- **style:** Mudanças de formatação (espaços, ponto e vírgula, etc.) sem alterar o código.
-- **chore:** Atualizações de tarefas de build, dependências ou configurações.
+## 🎯 Padronização de commits
+
+Para manter o histórico de alterações organizado, seguimos o padrão de Conventional Commits:
+
+- **feat:** criação de um novo recurso ou funcionalidade.
+- **fix:** correção de um erro.
+- **docs:** alteração apenas na documentação.
+- **refactor:** alteração estrutural sem correção de erro ou novo recurso.
+- **style:** alteração de formatação sem mudança de comportamento.
+- **chore:** atualização de build, dependências ou configurações.
