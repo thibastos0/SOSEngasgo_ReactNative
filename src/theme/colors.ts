@@ -7,4 +7,7 @@ export const colors = {
   textMuted: '#757575',    // Texto secundário e descrições
   borderInput: '#9E9E9E',  // Linha inferior dos inputs
   white: '#FFFFFF',
+  footerBackground: '#F5E8E8', // Fundo sutil e discreto em tom rosado/cinza claro
+  footerText: '#757575',       // Texto em cinza neutro
+  githubIcon: '#333333',       // Cor para o ícone do GitHub
 };

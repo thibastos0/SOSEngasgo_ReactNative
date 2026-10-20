@@ -4,6 +4,7 @@ import {
   StyleSheet } from 'react-native';
 
 import CustomButton  from '../components/CustomButton';
+import Footer from '../components/Footer';
 import { globalStyles } from '../theme/globalStyles';
 
 
@@ -46,6 +47,7 @@ export default function WelcomeScreen (props: any) {
         </View>
 
       </View>
+      <Footer />
     </View>
   );
 };
