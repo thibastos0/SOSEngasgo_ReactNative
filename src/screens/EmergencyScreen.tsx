@@ -11,6 +11,7 @@ import { globalStyles } from '../theme/globalStyles';
 import { colors } from '../theme/colors';
 import CustomButton from '../components/CustomButton';
 import ManeuverCard from '../components/ManeuverCard';
+import Footer from '../components/Footer';
 
 export default function EmergencyScreen(props: any) {
     const handleFinish = () => {
@@ -61,6 +62,7 @@ export default function EmergencyScreen(props: any) {
                     navigateTo={handleFinish}
                 />
             </ScrollView>
+            <Footer />
         </KeyboardAvoidingView>
     );
 }

@@ -9,6 +9,7 @@ import {
 
 import CustomButton from '../components/CustomButton';
 import CustomInput from '../components/CustomInput';
+import Footer from '../components/Footer';
 import { globalStyles } from '../theme/globalStyles';
 
 import { useState } from 'react';
@@ -114,6 +115,7 @@ export default function RegisterScreen(props: any) {
                     }}
                 />
             </ScrollView>
+            <Footer />
         </KeyboardAvoidingView>
     );
 }

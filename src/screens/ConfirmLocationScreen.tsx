@@ -6,6 +6,7 @@ import {
 import { globalStyles } from '../theme/globalStyles';
 import CustomButton from '../components/CustomButton';
 import CustomMockMap from '../components/CustomMockMap';
+import Footer from '../components/Footer';
 
 export default function ConfirmLocationScreen( props: any ) {
 
@@ -33,24 +34,28 @@ export default function ConfirmLocationScreen( props: any ) {
     };
 
     return (
-        <View style={globalStyles.containerSpaceBetween}>
+        <View style={globalStyles.container}>
+
+            <View style={globalStyles.containerSpaceBetween}>
             
-            <CustomMockMap />
+                <CustomMockMap />
 
-            <View style={globalStyles.buttonContainer}>
-                <CustomButton
-                    title="Sim, Chamar Socorro"
-                    variant="primary"
-                    navigateTo={props.navigation.navigate}
-                    targetScreen="EmergencyScreen"
-                />
-                <CustomButton
-                    title="Não, Cancelar Acionamento"
-                    variant="outline"
-                    navigateTo={handleCancel}
-                />
+                <View style={globalStyles.buttonContainer}>
+                    <CustomButton
+                        title="Sim, Chamar Socorro"
+                        variant="primary"
+                        navigateTo={props.navigation.navigate}
+                        targetScreen="EmergencyScreen"
+                    />
+                    <CustomButton
+                        title="Não, Cancelar Acionamento"
+                        variant="outline"
+                        navigateTo={handleCancel}
+                    />
+                </View>
+
             </View>
-
+            <Footer />
         </View>
     );
 }
