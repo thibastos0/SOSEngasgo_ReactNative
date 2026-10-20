@@ -52,6 +52,23 @@ export const globalStyles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 12,
     },
+    headerContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        backgroundColor: colors.background,
+        borderBottomWidth: 1,
+        borderBottomColor: '#E0E0E0',
+    },
+    headerTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: colors.primary,
+        textAlign: 'center',
+    },
     subtitle: {
         fontSize: 14,
         color: colors.textMuted,
