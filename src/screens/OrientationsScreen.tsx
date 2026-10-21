@@ -1,6 +1,4 @@
-import { 
-    View, 
-    Text } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { globalStyles } from '../theme/globalStyles';
 
@@ -9,9 +7,7 @@ import Footer from '../components/Footer';
 
 export default function OrientationsScreen(props: any) {
   return (
-
-    <View style={globalStyles.containerTop}>
-
+    <View style={globalStyles.container}>
       <Header
         title="Orientações"
         showMenu={true}
@@ -25,7 +21,6 @@ export default function OrientationsScreen(props: any) {
       </View>
 
       <Footer />
-
     </View>
   );
 }

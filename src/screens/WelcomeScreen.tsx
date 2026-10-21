@@ -1,26 +1,19 @@
-import { 
-  View, 
-  Text, 
-  StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import CustomButton  from '../components/CustomButton';
+import CustomButton from '../components/CustomButton';
 import Footer from '../components/Footer';
 import { globalStyles } from '../theme/globalStyles';
 
-
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-export default function WelcomeScreen (props: any) {
-
+export default function WelcomeScreen(props: any) {
   return (
     <View style={globalStyles.container}>
       <View style={globalStyles.logoContent}>
-
-        {/* Ícone de Coração / Pulso */}
         <View style={globalStyles.logoContainer}>
-          <MaterialCommunityIcons 
+          <MaterialCommunityIcons
             name="heart-pulse"
-            style={globalStyles.logoPlaceholder} />
+            style={globalStyles.logoPlaceholder}
+          />
         </View>
 
         <Text style={globalStyles.title}>Bem-vindo ao SOS Engasgo</Text>
@@ -28,8 +21,7 @@ export default function WelcomeScreen (props: any) {
           Um sistema pensado para emergências infantis — rápido, simples e seguro.
         </Text>
 
-        <View style={styles.buttonContainer}>
-
+        <View style={globalStyles.buttonContainer}>
           <CustomButton
             variant="primary"
             title="Entrar"
@@ -43,18 +35,10 @@ export default function WelcomeScreen (props: any) {
             navigateTo={props.navigation.navigate}
             targetScreen="Register"
           />
-
         </View>
-
       </View>
+
       <Footer />
     </View>
   );
-};
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    width: '100%',
-    gap: 4,
-  },
-});
+}

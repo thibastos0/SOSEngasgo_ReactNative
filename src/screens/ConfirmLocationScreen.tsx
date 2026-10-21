@@ -1,7 +1,4 @@
-import { 
-    View, 
-    Platform, 
-    Alert } from 'react-native';
+import { View, Platform, Alert } from 'react-native';
 
 import { globalStyles } from '../theme/globalStyles';
 import CustomButton from '../components/CustomButton';
@@ -10,8 +7,7 @@ import CustomMockMap from '../components/CustomMockMap';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-export default function ConfirmLocationScreen( props: any ) {
-
+export default function ConfirmLocationScreen(props: any) {
     const handleCancel = () => {
         const confirmMessage = 'Deseja realmente cancelar o acionamento de socorro?';
 
@@ -36,15 +32,13 @@ export default function ConfirmLocationScreen( props: any ) {
     };
 
     return (
-        <View style={globalStyles.containerTop}>
-
+        <View style={globalStyles.container}>
             <Header
                 title="Confirmar Localização"
                 showBack={true}
             />
 
             <View style={globalStyles.containerSpaceBetween}>
-            
                 <CustomMockMap />
 
                 <View style={globalStyles.buttonContainer}>
@@ -60,11 +54,9 @@ export default function ConfirmLocationScreen( props: any ) {
                         navigateTo={handleCancel}
                     />
                 </View>
-
             </View>
+
             <Footer />
         </View>
     );
 }
-
-

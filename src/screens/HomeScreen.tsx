@@ -1,5 +1,4 @@
-import { 
-    View,} from 'react-native';
+import { View } from 'react-native';
 
 import { globalStyles } from '../theme/globalStyles';
 import CustomEmergencyCard from '../components/CustomEmergencyCard';
@@ -7,28 +6,27 @@ import CustomEmergencyCard from '../components/CustomEmergencyCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-export default function HomeScreen( props: any) {
+export default function HomeScreen(props: any) {
     return (
-        <View style={globalStyles.containerTop}>
-
+        <View style={globalStyles.container}>
             <Header
                 title="SOS Engasgo"
                 showMenu={true}
                 showAuth={true}
             />
 
-            <CustomEmergencyCard
-                cardTitle="Emergência"
-                cardSubTitle="Em caso de engasgo, pressione o botão abaixo imediatamente"
-                navigateTo={props.navigation.navigate}
-                targetScreen="ConfirmLocation"
-                buttonText="Acionar"
-
-                cardFooter="Toque para acionar socorro."
-            />
+            <View style={globalStyles.content}>
+                <CustomEmergencyCard
+                    cardTitle="Emergência"
+                    cardSubTitle="Em caso de engasgo, pressione o botão abaixo imediatamente"
+                    navigateTo={props.navigation.navigate}
+                    targetScreen="ConfirmLocation"
+                    buttonText="Acionar"
+                    cardFooter="Toque para acionar socorro."
+                />
+            </View>
 
             <Footer />
-                    
         </View>
     );
 }

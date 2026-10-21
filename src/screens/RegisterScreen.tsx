@@ -1,11 +1,13 @@
-import { 
-    KeyboardAvoidingView, 
-    Text, 
-    Platform, 
-    ScrollView, 
+import {
+    KeyboardAvoidingView,
+    View,
+    Text,
+    Platform,
+    ScrollView,
     Keyboard,
-    Alert
+    Alert,
 } from 'react-native';
+import { useState } from 'react';
 
 import CustomButton from '../components/CustomButton';
 import CustomInput from '../components/CustomInput';
@@ -14,8 +16,6 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 import { globalStyles } from '../theme/globalStyles';
-
-import { useState } from 'react';
 
 export default function RegisterScreen(props: any) {
     const [nome, setNome] = useState('');
@@ -58,14 +58,9 @@ export default function RegisterScreen(props: any) {
 
     return (
         <KeyboardAvoidingView
-            style={globalStyles.containerTop}
-            behavior={
-                Platform.OS === 'ios' 
-                    ? 'padding' 
-                    : undefined
-            }
+            style={globalStyles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
-
             <Header
                 title="Cadastro"
                 showBack={true}
@@ -73,7 +68,7 @@ export default function RegisterScreen(props: any) {
 
             <ScrollView
                 keyboardShouldPersistTaps="handled"
-                contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+                contentContainerStyle={globalStyles.scrollContent}
             >
                 <Text style={globalStyles.title}>Cadastrar Usuário</Text>
 
@@ -109,23 +104,25 @@ export default function RegisterScreen(props: any) {
                     onChangeText={setConfirmarSenha}
                 />
 
-                <CustomButton
-                    variant="primary"
-                    title="Salvar"
-                    navigateTo={handleRegister}
-                />
+                <View style={globalStyles.buttonContainer}>
+                    <CustomButton
+                        variant="primary"
+                        title="Salvar"
+                        navigateTo={handleRegister}
+                    />
 
-                <CustomButton
-                    title="Cancelar"
-                    variant="outline"
-                    navigateTo={() => {
-                        Keyboard.dismiss();
-                        props.navigation.goBack();
-                    }}
-                />
+                    <CustomButton
+                        title="Cancelar"
+                        variant="outline"
+                        navigateTo={() => {
+                            Keyboard.dismiss();
+                            props.navigation.goBack();
+                        }}
+                    />
+                </View>
             </ScrollView>
+
             <Footer />
         </KeyboardAvoidingView>
     );
 }
-

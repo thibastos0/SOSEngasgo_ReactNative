@@ -51,6 +51,22 @@ O fluxo atualmente implementado é:
 - **[React Navigation 7](https://reactnavigation.org/)** - Navegação entre as telas.
 - **[@expo/vector-icons](https://docs.expo.dev/guides/icons/)** - Ícones usados na interface.
 
+## 🤖 Uso de IA e Antigravity
+
+Durante o desenvolvimento, foram utilizadas ferramentas de inteligência artificial,
+incluindo o **Antigravity**, como apoio à implementação e à revisão da interface do
+aplicativo. A IA foi empregada principalmente para:
+
+- auxiliar na definição e no refinamento da estilização das screens, incluindo
+  cores, espaçamentos, tipografia, hierarquia visual e organização dos componentes; e
+- apoiar a configuração e o emprego do `DrawerNavigator` do React Navigation,
+  responsável pelo menu lateral que dá acesso às telas **Início**, **Treinamentos** e
+  **Orientações**.
+
+As sugestões geradas foram analisadas e adaptadas ao contexto do projeto pela equipe,
+que permaneceu responsável pelas decisões de implementação, validação do fluxo de
+navegação e revisão do código.
+
 ## 🚀 Como executar
 
 ### Pré-requisitos

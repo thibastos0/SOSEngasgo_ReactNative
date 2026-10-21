@@ -5,11 +5,9 @@ import {
     Alert,
     Platform,
     KeyboardAvoidingView,
-    StyleSheet,
 } from 'react-native';
 
 import { globalStyles } from '../theme/globalStyles';
-import { colors } from '../theme/colors';
 
 import CustomButton from '../components/CustomButton';
 import ManeuverCard from '../components/ManeuverCard';
@@ -43,19 +41,18 @@ export default function EmergencyScreen(props: any) {
 
     return (
         <KeyboardAvoidingView
-            style={globalStyles.containerTop}
+            style={globalStyles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
-
             <Header
                 title="Socorro em Andamento"
                 showBack={true}
             />
 
-            <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }}>
+            <ScrollView contentContainerStyle={globalStyles.scrollContent}>
                 <View>
-                    <Text style={styles.alertTitle}>SOCORRO ACIONADO!</Text>
-                    <Text style={styles.alertSubtitle}>
+                    <Text style={globalStyles.title}>SOCORRO ACIONADO!</Text>
+                    <Text style={globalStyles.descriptionText}>
                         Ajuda a caminho. Siga as orientações do assistente:
                     </Text>
                 </View>
@@ -66,30 +63,16 @@ export default function EmergencyScreen(props: any) {
                     // imageSource={require('../../assets/heimlich_step1.png')}
                 />
 
-                <CustomButton
-                    title="Socorro Chegou / Encerrar"
-                    variant="primary"
-                    navigateTo={handleFinish}
-                />
+                <View style={globalStyles.buttonContainer}>
+                    <CustomButton
+                        title="Socorro Chegou / Encerrar"
+                        variant="primary"
+                        navigateTo={handleFinish}
+                    />
+                </View>
             </ScrollView>
+
             <Footer />
         </KeyboardAvoidingView>
     );
 }
-
-const styles = StyleSheet.create({
-    alertTitle: {
-        color: colors.primary,
-        fontSize: 22,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 16,
-    },
-    alertSubtitle: {
-        color: colors.textMain,
-        fontSize: 14,
-        textAlign: 'center',
-        marginBottom: 16,
-    },
-});
-
