@@ -1,17 +1,11 @@
 {
   "expo": {
     "name": "SOSEngasgo",
-    "slug": "SOSEngasgo",
+    "slug": "sosengasgo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "userInterfaceStyle": "light",    
     "ios": {
       "supportsTablet": true
     },
@@ -20,14 +14,36 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-status-bar"
-    ]
+      "expo-status-bar",
+      [
+        "react-native-maps",
+        {
+          "requestLocationPermission": true,
+          "LocationPermission": "Permitir que o aplicativo ${expo.name} acesse sua localização?",
+          "androidGoogleMapsApiKey": "process.env.GOOGLE_MAPS_API_KEY",
+          "iosGoogleMapsApiKey": "process.env.GOOGLE_MAPS_API_KEY"
+        }
+      ],
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Permitir que o aplicativo ${expo.name} acesse sua localização?",
+          "locationWhenInUsePermission": "Permitir que o aplicativo ${expo.name} acesse sua localização?"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "d3772c48-6bec-40cd-a8ab-ec4c69629358"
+      }
+    },
+    "owner": "thibastoss-team"
   }
 }

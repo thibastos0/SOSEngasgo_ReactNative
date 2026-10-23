@@ -46,3 +46,10 @@ npx expo install @expo/vector-icons
 
 Navegação em telas:
 https://reactnative.dev/docs/navigation#react-navigation
+
+Maps
+npx expo install react-native-maps
+NÃO funciona web
+
+Location
+npx expo install expo-location
