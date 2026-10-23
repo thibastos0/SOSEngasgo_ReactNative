@@ -1,13 +1,17 @@
 import { View, Platform, Alert } from 'react-native';
 
+import { useState, useEffect } from 'react';
+import * as Location from 'expo-location';
+
 import { globalStyles } from '../theme/globalStyles';
 import CustomButton from '../components/CustomButton';
-import CustomMockMap from '../components/CustomMockMap';
+import CustomMap from '../components/CustomMap';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function ConfirmLocationScreen(props: any) {
+
     const handleCancel = () => {
         const confirmMessage = 'Deseja realmente cancelar o acionamento de socorro?';
 
@@ -31,6 +35,39 @@ export default function ConfirmLocationScreen(props: any) {
         }
     };
 
+
+    const [location, setLocation] = useState<Location.LocationObject | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+    useEffect(() => {
+        async function getCurrentLocation() {
+      
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permissão de localização negada. Por favor, habilite a permissão para continuar.');
+                return;
+            }
+
+            let currentLocation = await Location.getCurrentPositionAsync({});
+            setLocation(currentLocation);
+        }
+
+        getCurrentLocation();
+    }, []);
+
+    const handleLocationChange = (newCoords: { latitude: number; longitude: number }) => {
+        if (location) {
+            setLocation({
+                ...location,
+                coords: {
+                    ...location.coords,
+                    latitude: newCoords.latitude,
+                    longitude: newCoords.longitude,
+                },
+            });
+        }
+    };
+
     return (
         <View style={globalStyles.container}>
             <Header
@@ -39,7 +76,11 @@ export default function ConfirmLocationScreen(props: any) {
             />
 
             <View style={globalStyles.containerSpaceBetween}>
-                <CustomMockMap />
+
+                <CustomMap 
+                    coords={location ? location.coords : errorMsg}
+                    onLocationChange={handleLocationChange}
+                />
 
                 <View style={globalStyles.buttonContainer}>
                     <CustomButton

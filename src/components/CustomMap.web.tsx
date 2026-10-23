@@ -6,7 +6,7 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 
-export default function CustomMockMap(props: any) {
+export default function CustomMap(props: any) {
     return (
 
         <View>
@@ -17,7 +17,7 @@ export default function CustomMockMap(props: any) {
                     style={styles.mapIcon}
                 />
                 <Text style={styles.mapText}>
-                    [ Simulação do Google Maps ]
+                    [ Simulação do Google Maps: {JSON.stringify(props.coords)} ]
                 </Text>
             </View>
 
@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
     mapText: {
         color: colors.textMuted,
         fontSize: 14,
+        textAlign: 'center',
+        width: '80%',
+        flexShrink: 1,
     },
     description: {
         color: colors.textMain,
