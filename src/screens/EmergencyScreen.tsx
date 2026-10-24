@@ -55,6 +55,19 @@ export default function EmergencyScreen(props: any) {
                     <Text style={globalStyles.descriptionText}>
                         Ajuda a caminho. Siga as orientações do assistente:
                     </Text>
+                    <Text style={globalStyles.descriptionText}>
+                        {props.route.params?.location ? 
+                        `   Localização: 
+                            ${  props.route.params.location.coords.latitude.toFixed(6)}, 
+                            ${  props.route.params.location.coords.longitude.toFixed(6)}` : 
+                            'Localização não disponível.'}
+                        {props.route.params?.emergency ? 
+                        `   Protocolo: 
+                            ${  props.route.params.emergency.deviceId}, 
+                            ${  props.route.params.emergency.createdAt}, 
+                            ${  props.route.params.emergency.protocol}` :
+                            'Protocolo não disponível.'}
+                    </Text>
                 </View>
 
                 <ManeuverCard

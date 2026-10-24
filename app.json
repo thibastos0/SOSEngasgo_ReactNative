@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",    
+    "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
     },
@@ -36,6 +36,13 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Permitir que o aplicativo ${expo.name} acesse sua localização?",
           "locationWhenInUsePermission": "Permitir que o aplicativo ${expo.name} acesse sua localização?"
+        }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": true,
+          "faceIDPermission": "Permitir que o aplicativo ${expo.name} use o Face ID para autenticação?"
         }
       ]
     ],

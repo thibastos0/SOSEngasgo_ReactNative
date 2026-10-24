@@ -56,6 +56,8 @@ O fluxo atualmente implementado é:
 - **[@expo/vector-icons](https://docs.expo.dev/guides/icons/)** - Ícones usados na interface.
 - **[react-native-maps 1.29](https://github.com/react-native-maps/react-native-maps)** - Mapa nativo e marcador ajustável.
 - **[expo-location](https://docs.expo.dev/versions/v58.0.0/sdk/location/)** - Permissões e leitura da localização atual.
+- **[expo-secure-store](https://docs.expo.dev/versions/v58.0.0/sdk/securestore/)** - Armazenamento seguro e persistente do identificador do dispositivo.
+- **[expo-crypto](https://docs.expo.dev/versions/v58.0.0/sdk/crypto/)** - Geração de UUID aleatório para o identificador do dispositivo.
 - **[react-native-reanimated 4](https://docs.swmansion.com/react-native-reanimated/)** - Animações usadas pela navegação.
 
 ### Dependências principais
@@ -68,6 +70,8 @@ As dependências são mantidas alinhadas ao Expo SDK 58 com `npx expo install`, 
 | `expo-dev-client` | `~58.0.14` | Desenvolvimento com cliente nativo |
 | `expo-font` | `~58.0.9` | Carregamento de fontes |
 | `expo-location` | `~58.0.18` | Permissões e localização |
+| `expo-secure-store` | `~58.0.2` | Persistência segura do `deviceId` |
+| `expo-crypto` | `~58.0.7` | Geração do UUID do `deviceId` |
 | `expo-status-bar` | `~58.0.4` | Barra de status |
 | `react-native-maps` | `1.29.11` | Mapa nativo |
 | `@react-navigation/drawer` | `^7.14.4` | Menu lateral |
@@ -83,6 +87,48 @@ npx expo start
 ```
 
 Não inclua chaves reais no repositório. A versão Web não usa `react-native-maps` e exibe um fallback informativo.
+
+### Identificação do dispositivo e protocolo de emergência
+
+O aplicativo utiliza um identificador aleatório e persistente para reconhecer a instalação
+do aplicativo sem solicitar dados pessoais ao usuário. Esse identificador é chamado de
+`deviceId` e é gerenciado por `src/services/device.ts`.
+
+O fluxo de criação é:
+
+1. `getOrCreateDeviceId()` consulta a chave `device_id` no `expo-secure-store`.
+2. Se a chave já existir, o valor armazenado é reutilizado.
+3. Se ainda não existir, `expo-crypto` gera um UUID aleatório com `Crypto.randomUUID()`.
+4. O novo UUID é salvo no SecureStore para ser reutilizado nos próximos acionamentos.
+5. `generateEmergencyProtocol(deviceId)` cria o registro do atendimento com:
+   - `deviceId`: identificador persistente da instalação;
+   - `protocol`: código legível no formato `SOC-YYYYMMDD-HHMMSS`;
+   - `createdAt`: data e hora de criação em ISO 8601.
+
+Esse identificador não é o IMEI, número de série ou outro identificador de hardware.
+Ele representa apenas a instalação do aplicativo e pode ser alterado quando os dados
+seguros do aplicativo são apagados ou quando o aplicativo é reinstalado, dependendo da
+plataforma.
+
+As dependências necessárias para essa proposta são:
+
+```bash
+npx expo install expo-secure-store expo-crypto
+```
+
+O plugin `expo-secure-store` também está declarado em `app.json`, com suporte ao backup
+do Android configurado. Depois de alterar plugins nativos, é necessário gerar/reconstruir
+o cliente nativo para que a configuração seja aplicada:
+
+```bash
+npx expo prebuild
+npx expo run:android
+# ou
+npx expo run:ios
+```
+
+O `deviceId` não deve ser exibido como dado de autenticação nem usado como substituto de
+login. Ele serve como referência técnica do atendimento e como solução para uso do recurso sem login.
 
 ## 🤖 Uso de IA e Antigravity
 

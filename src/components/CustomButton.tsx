@@ -10,7 +10,10 @@ export default function CustomButton(props: any) {
             style={[styles.botao, isPrimary ? styles.primario : styles.outline]} 
             onPress={() => {
                 if (props.navigateTo && props.targetScreen) {
-                    props.navigateTo(props.targetScreen);
+                    props.navigateTo(props.targetScreen, 
+                        props.data.emergencyProtocol ? { 
+                            emergency: props.data.emergencyProtocol, 
+                            location: props.data.location } : undefined);
                 } else if (props.navigateTo) {
                     props.navigateTo();
                 }

@@ -6,11 +6,23 @@ import * as Location from 'expo-location';
 import { globalStyles } from '../theme/globalStyles';
 import CustomButton from '../components/CustomButton';
 import CustomMap from '../components/CustomMap';
+import * as deviceService from '../services/device';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function ConfirmLocationScreen(props: any) {
+
+    const [deviceId, setDeviceId] = useState<string | "">("");
+
+    useEffect(() => {
+        async function getDeviceId() {
+            const id = await deviceService.getOrCreateDeviceId();
+            setDeviceId(id);
+        }
+
+        getDeviceId();
+    }, []);
 
     const handleCancel = () => {
         const confirmMessage = 'Deseja realmente cancelar o acionamento de socorro?';
@@ -88,6 +100,10 @@ export default function ConfirmLocationScreen(props: any) {
                         variant="primary"
                         navigateTo={props.navigation.navigate}
                         targetScreen="Emergency"
+                        data={{ 
+                            emergencyProtocol: deviceService.generateEmergencyProtocol(deviceId),
+                            location: location 
+                        }}
                     />
                     <CustomButton
                         title="Não, Cancelar Acionamento"
