@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import * as screens from './src/screens';
+import * as screens from '@/screens';
 
 const Drawer = createDrawerNavigator();
 const RootStack = createNativeStackNavigator();
