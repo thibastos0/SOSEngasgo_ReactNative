@@ -53,3 +53,7 @@ NÃO funciona web
 
 Location
 npx expo install expo-location
+
+Identificação Anônima e Geração de Protocolo
+npx expo install expo-crypto
+npx expo install expo-secure-store
