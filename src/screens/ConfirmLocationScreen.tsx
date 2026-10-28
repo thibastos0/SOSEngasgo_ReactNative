@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
 
 import { globalStyles } from '../theme/globalStyles';
-import CustomButton from '../components/CustomButton';
+import CustomButtonConfirm from '../components/CustomButtonConfirm';
 import CustomMap from '../components/CustomMap';
 import * as deviceService from '../services/device';
+import { sendEmergencyWhatsApp } from '../services/api';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -14,6 +15,9 @@ import Header from '../components/Header';
 export default function ConfirmLocationScreen(props: any) {
 
     const [deviceId, setDeviceId] = useState<string | "">("");
+    const [location, setLocation] = useState<Location.LocationObject | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         async function getDeviceId() {
@@ -47,10 +51,6 @@ export default function ConfirmLocationScreen(props: any) {
         }
     };
 
-
-    const [location, setLocation] = useState<Location.LocationObject | null>(null);
-    const [errorMsg, setErrorMsg] = useState<string | null>(null);
-
     useEffect(() => {
         async function getCurrentLocation() {
       
@@ -80,6 +80,42 @@ export default function ConfirmLocationScreen(props: any) {
         }
     };
 
+    const handleConfirmEmergency = async () => {
+        if (!location) {
+            Alert.alert('Aguarde', 'Obtendo a sua localização atual...');
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            const emergencyObj = deviceService.generateEmergencyProtocol(deviceId);
+
+            const payload = {
+                protocol_id: emergencyObj.protocol,
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                device_id: deviceId,
+            };
+
+            // Dispara a requisição para a Vercel -> n8n
+            await sendEmergencyWhatsApp(payload);
+
+            // Navega apenas após a confirmação do envio
+            props.navigation.navigate('Emergency', {
+                emergency: emergencyObj,
+                location: location,
+            });
+        } catch (error) {
+            Alert.alert(
+                'Falha no Acionamento',
+                'Não foi possível conectar com o servidor de emergência. Tente novamente.'
+            );
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <View style={globalStyles.container}>
             <Header
@@ -95,20 +131,17 @@ export default function ConfirmLocationScreen(props: any) {
                 />
 
                 <View style={globalStyles.buttonContainer}>
-                    <CustomButton
+                    <CustomButtonConfirm
                         title="Sim, Chamar Socorro"
                         variant="primary"
-                        navigateTo={props.navigation.navigate}
-                        targetScreen="Emergency"
-                        data={{ 
-                            emergencyProtocol: deviceService.generateEmergencyProtocol(deviceId),
-                            location: location 
-                        }}
+                        loading={loading}
+                        onPress={handleConfirmEmergency}
                     />
-                    <CustomButton
+                    <CustomButtonConfirm
                         title="Não, Cancelar Acionamento"
                         variant="outline"
-                        navigateTo={handleCancel}
+                        disabled={loading}
+                        onPress={handleCancel}
                     />
                 </View>
             </View>
