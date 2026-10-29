@@ -57,3 +57,8 @@ npx expo install expo-location
 Identificação Anônima e Geração de Protocolo
 npx expo install expo-crypto
 npx expo install expo-secure-store
+
+Firebase
+https://docs.expo.dev/guides/using-firebase/
+https://firebase.google.com/docs/database/web/start
+npx expo install firebase

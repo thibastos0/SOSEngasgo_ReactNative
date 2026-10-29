@@ -19,6 +19,15 @@ export const globalStyles = StyleSheet.create({
         padding: 24,
         justifyContent: 'space-between',
     },
+    badgeContainer: {
+        backgroundColor: '#f0f9ff',
+        borderColor: '#0284c7',
+        borderWidth: 1,
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderRadius: 20,
+        marginVertical: 12,
+    },
     scrollContent: {
         flexGrow: 1,
         paddingHorizontal: 20,
@@ -70,6 +79,14 @@ export const globalStyles = StyleSheet.create({
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowRadius: 6,
+    },
+    cardStatus: {
+        backgroundColor: '#ffffff',
+        padding: 16,
+        borderRadius: 12,
+        marginBottom: 16,
+        alignItems: 'center',
+        elevation: 2,
     },
 
     // 4. Ações e Envelopes de Botões
@@ -149,5 +166,21 @@ export const globalStyles = StyleSheet.create({
         fontSize: 12,
         fontWeight: 'bold',
         color: colors.primary,
+    },
+
+    // 7. Emergency Estilos
+    badgeText: {
+        color: '#0369a1',
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    protocolText: {
+        fontSize: 12,
+        color: '#64748b',
+    },
+    locationText: {
+        fontSize: 12,
+        color: '#64748b',
+        marginTop: 4,
     },
 });
