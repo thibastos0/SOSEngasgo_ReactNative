@@ -7,6 +7,10 @@ import {
     KeyboardAvoidingView,
 } from 'react-native';
 
+import { useState, useEffect } from 'react';
+import { ref, onValue } from 'firebase/database';
+import { db } from '../services/firebase';
+
 import { globalStyles } from '../theme/globalStyles';
 
 import CustomButton from '../components/CustomButton';
@@ -16,6 +20,47 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function EmergencyScreen(props: any) {
+
+    const emergencyData = props.route.params?.emergency;
+    const locationData = props.route.params?.location;
+    const protocolId = emergencyData?.protocol;
+
+    const [status, setStatus] = useState<string >('SENT');
+
+    useEffect((() => {
+        if (!protocolId) return;
+    
+        const statusRef = ref(db, `emergencies/${protocolId}/status`);
+        if (!statusRef) return;
+
+        const unsubscribe = onValue(statusRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                setStatus(data);
+            }
+        });
+        return () => {
+            unsubscribe();
+        };
+    }), [protocolId]);
+
+    const getStatusMessage = () => {
+        switch (status) {
+            case 'SENT':
+                return 'Chamado enviado. Aguardando confirmação do socorro.';
+            case 'DELIVERED':
+                return 'Chamado entregue.';
+            case 'READ':
+                return 'Chamado lido pelo socorro.';
+            case 'IN_PROGRESS':
+                return 'Socorro a caminho.';
+            case 'COMPLETED':
+                return 'Socorro concluído.';
+            default:
+                return 'Processando...';
+        }
+    };
+
     const handleFinish = () => {
         const confirmMessage = 'Deseja realmente encerrar o atendimento de emergência?';
 
@@ -50,24 +95,24 @@ export default function EmergencyScreen(props: any) {
             />
 
             <ScrollView contentContainerStyle={globalStyles.scrollContent}>
-                <View>
+                <View style={globalStyles.cardStatus}>
+                    
                     <Text style={globalStyles.title}>SOCORRO ACIONADO!</Text>
-                    <Text style={globalStyles.descriptionText}>
-                        Ajuda a caminho. Siga as orientações do assistente:
+
+                    <View style={globalStyles.badgeContainer}>
+                        <Text style={globalStyles.badgeText}>
+                            {getStatusMessage()}
+                        </Text>
+                    </View>
+
+                    <Text style={globalStyles.protocolText}>
+                        Protocolo: {protocolId || 'Não disponível'}
                     </Text>
-                    <Text style={globalStyles.descriptionText}>
-                        {props.route.params?.location ? 
-                        `   Localização: 
-                            ${  props.route.params.location.coords.latitude.toFixed(6)}, 
-                            ${  props.route.params.location.coords.longitude.toFixed(6)}` : 
-                            'Localização não disponível.'}
-                        {props.route.params?.emergency ? 
-                        `   Protocolo: 
-                            ${  props.route.params.emergency.deviceId}, 
-                            ${  props.route.params.emergency.createdAt}, 
-                            ${  props.route.params.emergency.protocol}` :
-                            'Protocolo não disponível.'}
+
+                    <Text style={globalStyles.locationText}>
+                        Localização: {locationData ? `${locationData.coords.latitude.toFixed(6)}, ${locationData.coords.longitude.toFixed(6)}` : 'Não disponível'}
                     </Text>
+
                 </View>
 
                 <ManeuverCard
