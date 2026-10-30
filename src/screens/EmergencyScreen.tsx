@@ -5,16 +5,32 @@ import {
     Alert,
     Platform,
     KeyboardAvoidingView,
+    Pressable,
+    ActivityIndicator,
 } from 'react-native';
 
 import { useState, useEffect } from 'react';
+import { MaterialIcons } from '@expo/vector-icons';
+
 import { ref, onValue } from 'firebase/database';
 import { db } from '../services/firebase';
+
+import { File } from 'expo-file-system';
+//import * as FileSystem from 'expo-file-system/legacy';
+
+import {
+  useAudioRecorder,
+  AudioModule,
+  RecordingPresets,
+  setAudioModeAsync,
+  useAudioRecorderState,
+} from 'expo-audio';
 
 import { globalStyles } from '../theme/globalStyles';
 
 import CustomButton from '../components/CustomButton';
 import ManeuverCard from '../components/ManeuverCard';
+import { sendAudioToAI } from '../services/api';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -24,13 +40,27 @@ export default function EmergencyScreen(props: any) {
     const emergencyData = props.route.params?.emergency;
     const locationData = props.route.params?.location;
     const protocolId = emergencyData?.protocol;
+    const deviceId = emergencyData?.deviceId;
 
     const [status, setStatus] = useState<string >('SENT');
+    const [sendingAudio, setSendingAudio] = useState<boolean>(false);
+    const [aiResponse, setAIResponse] = useState<
+        {   "protocol_id": string,
+            "response_text": string | null,
+            "maneuver": { 
+            "title": string | null,
+             "steps": string[] | null
+             } 
+        } | null>(null);
+
+    const audioRecorder = useAudioRecorder({...RecordingPresets.HIGH_QUALITY, directory: 'document'});
+    const recorderState = useAudioRecorderState(audioRecorder);
 
     useEffect((() => {
         if (!protocolId) return;
-    
-        const statusRef = ref(db, `emergencies/${protocolId}/status`);
+        if (!deviceId) return;
+
+        const statusRef = ref(db, `emergencies/${deviceId}/${protocolId}/status`);
         if (!statusRef) return;
 
         const unsubscribe = onValue(statusRef, (snapshot) => {
@@ -60,6 +90,78 @@ export default function EmergencyScreen(props: any) {
                 return 'Processando...';
         }
     };
+
+    async function handleStartRecording() {
+        try {
+            const permission = await AudioModule.requestRecordingPermissionsAsync();
+            if (!permission.granted) {
+                Alert.alert('Permissão de Áudio', 'Permissão para gravar áudio negada.');
+                return;
+            }
+
+            // Configure audio for recording
+            await setAudioModeAsync({
+            allowsRecording: true,
+            playsInSilentMode: true,
+            interruptionMode: 'doNotMixPersistent'
+            });
+            
+            await audioRecorder.prepareToRecordAsync();
+            // audio em audioRecorder.uri
+            audioRecorder.record();
+            
+
+        } catch (error) {
+            console.error('Erro ao iniciar gravação:', error);
+        }
+    }
+
+    async function handleStopAndSend() {
+
+        if (!recorderState.isRecording) return;
+
+        try {
+            await audioRecorder.stop();
+            await setAudioModeAsync({
+                allowsRecording: false
+            });
+
+            if (!audioRecorder.uri) {
+                console.error('URI do áudio não disponível.');
+                return;
+            }
+
+            setSendingAudio(true);
+
+            // Read the audio file as base64 para substituir o legacy FileSystem.readAsStringAsync
+            const audio = await new File(
+                audioRecorder.uri).base64();
+
+            /*const base64Audio = await FileSystem.readAsStringAsync(audioRecorder.uri, {
+                encoding: FileSystem.EncodingType.Base64,
+            });*/
+
+            if(!audio) {
+                throw new Error('Não foi possível converter o áudio para base64.');
+            }
+
+            const aiResponse = await sendAudioToAI({
+                audio_base64: audio,
+                protocol_id: protocolId || 'unknown_protocol',
+                device_id: deviceId || 'unknown_device',
+            });
+            
+            setAIResponse(aiResponse);
+            console.log('Resposta da AI:', aiResponse);
+
+        } catch (error) {
+            console.error('Erro ao parar gravação:', error);
+            Alert.alert('Erro', 'Falha ao enviar áudio para o Agente IA. Tente novamente.');
+        } finally {
+            setSendingAudio(false);
+        }
+
+    }
 
     const handleFinish = () => {
         const confirmMessage = 'Deseja realmente encerrar o atendimento de emergência?';
@@ -108,6 +210,9 @@ export default function EmergencyScreen(props: any) {
                     <Text style={globalStyles.protocolText}>
                         Protocolo: {protocolId || 'Não disponível'}
                     </Text>
+                    <Text style={globalStyles.protocolText}>
+                        Dispositivo: {deviceId || 'Não disponível'}
+                    </Text>
 
                     <Text style={globalStyles.locationText}>
                         Localização: {locationData ? `${locationData.coords.latitude.toFixed(6)}, ${locationData.coords.longitude.toFixed(6)}` : 'Não disponível'}
@@ -116,10 +221,41 @@ export default function EmergencyScreen(props: any) {
                 </View>
 
                 <ManeuverCard
-                    title="Manobra de Heimlich"
-                    instruction={"1. Posicione-se atrás da criança...\n2. Feche a mão e pressione a região abdominal."}
+                    title={aiResponse?.maneuver?.title || 'Manobra de Heimlich'}
+                    text={aiResponse?.response_text || 'Descrição não disponível.'}
+                    instruction={aiResponse?.maneuver?.steps ? aiResponse.maneuver.steps.join('\n') : 'Instruções não disponíveis.'}
                     // imageSource={require('../../assets/heimlich_step1.png')}
                 />
+
+                <View style={globalStyles.micArea}>
+                    <Text style={globalStyles.micText}>
+                        {recorderState.isRecording
+                            ? '🔴 Gravando... Solte para enviar'
+                            : sendingAudio
+                            ? '⏳ Enviando áudio para a IA...'
+                            : 'Hold to talk (Segure para falar)'}
+                    </Text>
+
+                    <Pressable
+                        style={[
+                            globalStyles.micButton,
+                            recorderState.isRecording && globalStyles.micButtonRecording,
+                        ]}
+                        onPressIn={handleStartRecording}
+                        onPressOut={handleStopAndSend}
+                        disabled={sendingAudio} // Desabilita o botão enquanto o áudio está sendo enviado
+                    >
+                        {sendingAudio ? (
+                            <ActivityIndicator color="#ffffff" />
+                        ) : (
+                            <MaterialIcons
+                                style={globalStyles.micIcon}
+                                name={recorderState.isRecording ? 'mic' : 'mic-none'}                                
+                            />
+                        )}
+                    </Pressable>
+
+                </View>
 
                 <View style={globalStyles.buttonContainer}>
                     <CustomButton

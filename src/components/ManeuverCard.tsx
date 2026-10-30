@@ -28,6 +28,9 @@ export default function ManeuverCard(props: any) {
 
             <View style={styles.instructionBox}>
                 <Text style={styles.instructionText}>
+                    {props.text}
+                </Text>
+                <Text style={styles.instructionText}>
                     {props.instruction}
                 </Text>
             </View>
