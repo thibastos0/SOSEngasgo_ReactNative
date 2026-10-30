@@ -183,4 +183,37 @@ export const globalStyles = StyleSheet.create({
         color: '#64748b',
         marginTop: 4,
     },
+
+    // 8. Microfone e Áudio
+    micArea: {
+        alignItems: 'center',
+        marginVertical: 20,
+    },
+    micText: {
+        fontSize: 14,
+        color: '#475569',
+        marginBottom: 10,
+        fontWeight: '600',
+    },
+    micButton: {
+        width: 70,
+        height: 70,
+        borderRadius: 35,
+        backgroundColor: colors.notRecording,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 4,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    },
+    micButtonRecording: {
+        backgroundColor: colors.recording,
+        transform: [{ scale: 1.1 }],
+    },
+    micIcon: {
+        fontSize: 24,
+    },
+
 });

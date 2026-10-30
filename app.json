@@ -44,6 +44,12 @@
           "configureAndroidBackup": true,
           "faceIDPermission": "Permitir que o aplicativo ${expo.name} use o Face ID para autenticação?"
         }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "Permitir que o aplicativo ${expo.name} acesse o microfone?"
+        }
       ]
     ],
     "extra": {

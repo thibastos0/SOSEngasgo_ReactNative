@@ -62,3 +62,7 @@ Firebase
 https://docs.expo.dev/guides/using-firebase/
 https://firebase.google.com/docs/database/web/start
 npx expo install firebase
+
+Audio
+npx expo install expo-audio expo-file-system
+https://docs.expo.dev/versions/latest/sdk/audio/

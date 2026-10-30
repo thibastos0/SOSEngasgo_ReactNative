@@ -8,6 +8,12 @@ interface EmergencyPayload {
   device_id?: string;
 }
 
+interface AudioPayload {
+  audio_base64: string;
+  protocol_id: string;
+  device_id?: string;
+}
+
 export async function sendEmergencyWhatsApp(payload: EmergencyPayload) {
 
     const formattedPayload = {
@@ -35,6 +41,30 @@ export async function sendEmergencyWhatsApp(payload: EmergencyPayload) {
         return await response.json();
     } catch (error) {
         console.error('Falha ao acionar socorro via WhatsApp:', error);
+        throw error;
+    }
+}
+export async function sendAudioToAI(payload: AudioPayload) {
+
+    try {
+        const response = await fetch(`${VERCEL_PROXY_URL}/api/ai`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-App-Local-Token': APP_VALIDATION_TOKEN || '',
+            },
+            body: JSON.stringify(payload),
+        });
+
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || `Erro HTTP: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Falha ao enviar áudio para AI:', error);
         throw error;
     }
 }
