@@ -85,8 +85,6 @@ export default function EmergencyScreen(props: any) {
                 return 'Chamado enviado. Aguardando confirmação do socorro.';
             case 'DELIVERED':
                 return 'Chamado entregue.';
-            case 'READ':
-                return 'Chamado lido pelo socorro.';
             case 'IN_PROGRESS':
                 return 'Socorro a caminho.';
             case 'COMPLETED':
