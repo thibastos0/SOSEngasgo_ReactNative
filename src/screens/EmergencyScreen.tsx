@@ -45,8 +45,9 @@ export default function EmergencyScreen(props: any) {
     const [status, setStatus] = useState<string >('SENT');
     const [sendingAudio, setSendingAudio] = useState<boolean>(false);
     const [aiResponse, setAIResponse] = useState<
-        {   "protocol_id": string,
+        {   "ia_status": string,
             "response_text": string | null,
+            "img": string | null,
             "maneuver": { 
             "title": string | null,
              "steps": string[] | null
@@ -57,22 +58,26 @@ export default function EmergencyScreen(props: any) {
     const recorderState = useAudioRecorderState(audioRecorder);
 
     useEffect((() => {
-        if (!protocolId) return;
-        if (!deviceId) return;
+        if (!protocolId || !deviceId) return;
 
-        const statusRef = ref(db, `emergencies/${deviceId}/${protocolId}/status`);
-        if (!statusRef) return;
+        const emergencyRef = ref(db, `emergencies/${deviceId}/${protocolId}`);
+        if (!emergencyRef) return;
 
-        const unsubscribe = onValue(statusRef, (snapshot) => {
+        const unsubscribe = onValue(emergencyRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                setStatus(data);
+                if (data.status) {
+                    setStatus(data.status);
+                }
+                if (data.ia_response) {
+                    setAIResponse(data.ia_response);
+                }
             }
         });
         return () => {
             unsubscribe();
         };
-    }), [protocolId]);
+    }), [protocolId, deviceId]);
 
     const getStatusMessage = () => {
         switch (status) {
@@ -80,8 +85,6 @@ export default function EmergencyScreen(props: any) {
                 return 'Chamado enviado. Aguardando confirmação do socorro.';
             case 'DELIVERED':
                 return 'Chamado entregue.';
-            case 'READ':
-                return 'Chamado lido pelo socorro.';
             case 'IN_PROGRESS':
                 return 'Socorro a caminho.';
             case 'COMPLETED':
@@ -145,14 +148,15 @@ export default function EmergencyScreen(props: any) {
                 throw new Error('Não foi possível converter o áudio para base64.');
             }
 
-            const aiResponse = await sendAudioToAI({
+            const apiAIResponse = await sendAudioToAI({
                 audio_base64: audio,
                 protocol_id: protocolId || 'unknown_protocol',
                 device_id: deviceId || 'unknown_device',
             });
             
-            setAIResponse(aiResponse);
-            console.log('Resposta da AI:', aiResponse);
+            //resposta da AI é salva no banco de dados em tempo real, então não é necessário setar o estado aqui
+            //setAIResponse(aiResponse);
+            console.log('Resposta da AI:', apiAIResponse);
 
         } catch (error) {
             console.error('Erro ao parar gravação:', error);
