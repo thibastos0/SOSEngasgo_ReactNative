@@ -62,7 +62,14 @@ export async function sendAudioToAI(payload: AudioPayload) {
             throw new Error(errorData.error || `Erro HTTP: ${response.status}`);
         }
 
-        return await response.json();
+        const data = await response.json();
+
+        return {
+            success: true,
+            status: 'queued',
+            message: data.message || 'Áudio recebido com sucesso',
+        };
+        
     } catch (error) {
         console.error('Falha ao enviar áudio para AI:', error);
         throw error;

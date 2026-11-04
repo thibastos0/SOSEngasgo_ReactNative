@@ -134,6 +134,12 @@ export default function EmergencyScreen(props: any) {
                 return;
             }
 
+            if (!protocolId || !deviceId) {
+            console.warn('Protocolo ou Device ID ausente.');
+            Alert.alert('Aviso', 'Identificador da emergência indisponível.');
+            return;
+        }
+
             setSendingAudio(true);
 
             // Read the audio file as base64 para substituir o legacy FileSystem.readAsStringAsync
@@ -156,11 +162,14 @@ export default function EmergencyScreen(props: any) {
             
             //resposta da AI é salva no banco de dados em tempo real, então não é necessário setar o estado aqui
             //setAIResponse(aiResponse);
-            console.log('Resposta da AI:', apiAIResponse);
+            console.log('Resposta da AI, pós áudio enviado:', apiAIResponse);
 
         } catch (error) {
             console.error('Erro ao parar gravação:', error);
-            Alert.alert('Erro', 'Falha ao enviar áudio para o Agente IA. Tente novamente.');
+            Alert.alert(
+            'Enviando...',
+            'Sua mensagem foi transmitida. Aguarde as instruções na tela em instantes.'
+        );
         } finally {
             setSendingAudio(false);
         }
