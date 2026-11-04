@@ -1,7 +1,9 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 import { globalStyles } from '../theme/globalStyles';
+import { getManeuverAsset } from '../constants/maneuverAssets';
 
 export default function ManeuverCard(props: any) {
     return (
@@ -10,9 +12,10 @@ export default function ManeuverCard(props: any) {
 
             {props.imageSource ? (
                 <Image
-                    source={props.imageSource}
+                    source={getManeuverAsset(props.imageSource)}
                     style={styles.maneuverImage}
-                    resizeMode="contain"
+                    contentFit="contain"
+                    autoplay={true}
                 />
             ) : (
                 <View style={styles.imagePlaceholder}>
@@ -52,14 +55,14 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
     maneuverImage: {
-        height: 160,
+        height: 220,
         width: '100%',
-        borderRadius: 10,
+        borderRadius: 12,
     },
     imagePlaceholder: {
         backgroundColor: '#F0F0F0',
-        height: 160,
-        borderRadius: 10,
+        height: 220,
+        borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
     },

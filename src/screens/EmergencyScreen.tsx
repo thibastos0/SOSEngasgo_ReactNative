@@ -219,25 +219,16 @@ export default function EmergencyScreen(props: any) {
                             {getStatusMessage()}
                         </Text>
                     </View>
-
-                    <Text style={globalStyles.protocolText}>
-                        Protocolo: {protocolId || 'Não disponível'}
-                    </Text>
-                    <Text style={globalStyles.protocolText}>
-                        Dispositivo: {deviceId || 'Não disponível'}
-                    </Text>
-
-                    <Text style={globalStyles.locationText}>
-                        Localização: {locationData ? `${locationData.coords.latitude.toFixed(6)}, ${locationData.coords.longitude.toFixed(6)}` : 'Não disponível'}
-                    </Text>
-
+                    
+                   
+                    
                 </View>
 
                 <ManeuverCard
                     title={aiResponse?.maneuver?.title || 'Manobra de Heimlich'}
                     text={aiResponse?.response_text || 'Descrição não disponível.'}
                     instruction={aiResponse?.maneuver?.steps ? aiResponse.maneuver.steps.join('\n') : 'Instruções não disponíveis.'}
-                    // imageSource={require('../../assets/heimlich_step1.png')}
+                    imageSource={aiResponse?.img || 'sos_initial_banner.gif'}
                 />
 
                 <View style={globalStyles.micArea}>
@@ -283,3 +274,19 @@ export default function EmergencyScreen(props: any) {
         </KeyboardAvoidingView>
     );
 }
+
+
+/* Dados de emergência e localização podem ser exibidos aqui, se necessário para depuração ou informações adicionais. Por exemplo:
+
+                    <Text style={globalStyles.protocolText}>
+                        Protocolo: {protocolId || 'Não disponível'}
+                    </Text>
+                    <Text style={globalStyles.protocolText}>
+                        Dispositivo: {deviceId || 'Não disponível'}
+                    </Text>
+
+                    <Text style={globalStyles.locationText}>
+                        Localização: {locationData ? `${locationData.coords.latitude.toFixed(6)}, ${locationData.coords.longitude.toFixed(6)}` : 'Não disponível'}
+                    </Text>
+
+*/
