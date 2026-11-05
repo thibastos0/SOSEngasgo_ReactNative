@@ -50,6 +50,12 @@
         {
           "microphonePermission": "Permitir que o aplicativo ${expo.name} acesse o microfone?"
         }
+      ],
+      [
+        "expo-image",
+        {
+          "disableLibdav1d": true
+        }
       ]
     ],
     "extra": {
