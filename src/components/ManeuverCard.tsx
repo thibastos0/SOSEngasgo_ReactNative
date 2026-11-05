@@ -12,6 +12,7 @@ export default function ManeuverCard(props: any) {
 
             {props.imageSource ? (
                 <Image
+                    key={props.imageSource}
                     source={getManeuverAsset(props.imageSource)}
                     style={styles.maneuverImage}
                     contentFit="contain"

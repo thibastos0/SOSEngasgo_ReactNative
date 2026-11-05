@@ -18,5 +18,13 @@ export const getManeuverAsset = (imageName: string | null | undefined): any => {
     if (!imageName || !MANEUVER_ASSETS[imageName]) {
         return MANEUVER_ASSETS['sos_initial_banner.gif']; 
     }
-    return MANEUVER_ASSETS[imageName];
+
+    const cleanName = imageName.trim().toLowerCase();
+
+    if (!MANEUVER_ASSETS[cleanName]) {
+        console.warn(`Asset "${cleanName}" não encontrado em MANEUVER_ASSETS. Exibindo banner padrão.`);
+        return MANEUVER_ASSETS['sos_initial_banner.gif'];
+    }
+
+    return MANEUVER_ASSETS[cleanName];
 };
