@@ -31,6 +31,7 @@ import { globalStyles } from '../theme/globalStyles';
 import CustomButton from '../components/CustomButton';
 import ManeuverCard from '../components/ManeuverCard';
 import { sendAudioToAI } from '../services/api';
+import { finishEmergencyAPI } from '../services/api';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -83,8 +84,6 @@ export default function EmergencyScreen(props: any) {
         switch (status) {
             case 'SENT':
                 return 'Chamado enviado. Aguardando confirmação do socorro.';
-            case 'DELIVERED':
-                return 'Chamado entregue.';
             case 'IN_PROGRESS':
                 return 'Socorro a caminho.';
             case 'COMPLETED':
@@ -181,7 +180,7 @@ export default function EmergencyScreen(props: any) {
 
         if (Platform.OS === 'web') {
             if (window.confirm(confirmMessage)) {
-                props.navigation.navigate('Home');
+                finishEmergency();
             }
         } else {
             Alert.alert(
@@ -192,12 +191,33 @@ export default function EmergencyScreen(props: any) {
                     {
                         text: 'Sim, Encerrar',
                         style: 'destructive',
-                        onPress: () => props.navigation.navigate('Home'),
+                        onPress: () => finishEmergency(),
                     },
                 ]
             );
         }
     };
+
+    async function finishEmergency() {
+
+        if (!deviceId || !protocolId) {
+            console.warn('Device ID ou Protocol ID ausente ao encerrar.');
+            props.navigation.navigate('Home');
+            return;
+        }
+
+        try {
+            await finishEmergencyAPI({
+                action: 'COMPLETED',
+                protocol_id: protocolId,
+                device_id: deviceId,
+            });
+        } catch (error) {
+            console.error('Erro ao solicitar encerramento da emergência:', error);
+        } finally {
+            props.navigation.navigate('Home');
+        }
+}
 
     return (
         <KeyboardAvoidingView
