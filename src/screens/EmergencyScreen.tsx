@@ -38,7 +38,7 @@ import Header from '../components/Header';
 export default function EmergencyScreen(props: any) {
 
     const emergencyData = props.route.params?.emergency;
-    const locationData = props.route.params?.location;
+    //const locationData = props.route.params?.location;
     const protocolId = emergencyData?.protocol;
     const deviceId = emergencyData?.deviceId;
 
