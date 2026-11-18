@@ -30,7 +30,8 @@ import { globalStyles } from '../theme/globalStyles';
 
 import CustomButton from '../components/CustomButton';
 import ManeuverCard from '../components/ManeuverCard';
-import { sendAudioToAI } from '../services/api';
+//teste de transcrição de áudio para texto
+import { audioToText, sendAudioToAI } from '../services/api';
 import { finishEmergencyAPI } from '../services/api';
 
 import Footer from '../components/Footer';
@@ -55,7 +56,30 @@ export default function EmergencyScreen(props: any) {
              } 
         } | null>(null);
 
-    const audioRecorder = useAudioRecorder({...RecordingPresets.HIGH_QUALITY, directory: 'document'});
+    //const audioRecorder = useAudioRecorder({...RecordingPresets.HIGH_QUALITY, directory: 'document'});
+    const audioRecorder = useAudioRecorder({
+        extension: '.wav',
+        sampleRate: 16000,
+        numberOfChannels: 1,
+        bitRate: 256000,
+        directory: 'document',
+        android: {
+            outputFormat: 'default',
+            audioEncoder: 'default',
+        },
+        ios: {
+            outputFormat: 'lpcm',
+            audioQuality: 96, // AudioQuality.HIGH
+            linearPCMBitDepth: 16,
+            linearPCMIsBigEndian: false,
+            linearPCMIsFloat: false,
+        },
+        web: {
+            mimeType: 'audio/webm;codecs=opus',
+            bitsPerSecond: 128000,
+        },
+    });
+    
     const recorderState = useAudioRecorderState(audioRecorder);
 
     useEffect((() => {
@@ -152,8 +176,8 @@ export default function EmergencyScreen(props: any) {
             if(!audio) {
                 throw new Error('Não foi possível converter o áudio para base64.');
             }
-
-            const apiAIResponse = await sendAudioToAI({
+            const transcript = await audioToText({
+            //const apiAIResponse = await sendAudioToAI({
                 audio_base64: audio,
                 protocol_id: protocolId || 'unknown_protocol',
                 device_id: deviceId || 'unknown_device',
@@ -161,7 +185,13 @@ export default function EmergencyScreen(props: any) {
             
             //resposta da AI é salva no banco de dados em tempo real, então não é necessário setar o estado aqui
             //setAIResponse(aiResponse);
-            console.log('Resposta da AI, pós áudio enviado:', apiAIResponse);
+            console.log('Transcrição do áudio:', transcript);
+
+            await sendAudioToAI({
+                transcript: transcript,
+                protocol_id: protocolId || 'unknown_protocol',
+                device_id: deviceId || 'unknown_device',
+            });
 
         } catch (error) {
             console.error('Erro ao parar gravação:', error);

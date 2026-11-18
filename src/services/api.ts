@@ -1,5 +1,7 @@
 const VERCEL_PROXY_URL = process.env.EXPO_PUBLIC_VERCEL_PROXY_URL;
 const APP_VALIDATION_TOKEN = process.env.EXPO_PUBLIC_APP_VALIDATION_TOKEN;
+const GOOGLE_CLOUD_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_CLOUD_API_KEY;
+const GOOGLE_CLOUD_CLIENT_ID = process.env.EXPO_PUBLIC_GOOGLE_CLOUD_CLIENT_ID;
 
 interface EmergencyPayload {
   protocol_id: string;
@@ -10,6 +12,12 @@ interface EmergencyPayload {
 
 interface AudioPayload {
   audio_base64: string;
+  protocol_id: string;
+  device_id?: string;
+}
+
+interface AudioToTextResponse {
+  transcript: string;
   protocol_id: string;
   device_id?: string;
 }
@@ -50,7 +58,49 @@ export async function sendEmergencyWhatsApp(payload: EmergencyPayload) {
         throw error;
     }
 }
-export async function sendAudioToAI(payload: AudioPayload) {
+
+export async function audioToText(payload: AudioPayload) {
+    try {
+        const response = await fetch(
+            `https://speech.googleapis.com/v1/speech:recognize?key=${GOOGLE_CLOUD_API_KEY}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            body: JSON.stringify({
+                audio: {
+                    content: payload.audio_base64,
+                },
+                config: {
+                    encoding: 'LINEAR16',
+                    sampleRateHertz: 16000,
+                    languageCode: 'pt-BR',
+                    enableAutomaticPunctuation: true,
+                    model: 'latest_short',
+                },
+            }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error('Erro Google', JSON.stringify(errorData));
+            throw new Error(errorData.error || `Erro HTTP: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Resposta do Google Speech-to-Text:', data);
+
+        const transcript = data?.results?.[0]?.alternatives?.[0]?.transcript || '';
+        return transcript;
+
+    } catch (error) {
+        console.error('Falha ao converter áudio para texto:', error);
+        throw error;
+    }
+}
+
+export async function sendAudioToAI(payload: AudioToTextResponse) {
 
     try {
         const response = await fetch(`${VERCEL_PROXY_URL}/api/ai`, {
