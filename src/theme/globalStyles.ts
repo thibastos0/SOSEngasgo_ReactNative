@@ -82,7 +82,7 @@ export const globalStyles = StyleSheet.create({
     },
     cardStatus: {
         backgroundColor: '#ffffff',
-        padding: 16,
+        padding: 10,
         borderRadius: 12,
         marginBottom: 16,
         alignItems: 'center',
@@ -196,8 +196,8 @@ export const globalStyles = StyleSheet.create({
         fontWeight: '600',
     },
     micButton: {
-        width: 70,
-        height: 70,
+        width: 60,
+        height: 60,
         borderRadius: 35,
         backgroundColor: colors.notRecording,
         justifyContent: 'center',

@@ -275,20 +275,13 @@ export default function EmergencyScreen(props: any) {
                 </View>
 
                 <ManeuverCard
-                    title={aiResponse?.maneuver?.title || 'Manobra de Heimlich'}
-                    text={aiResponse?.response_text || 'Descrição não disponível.'}
-                    instruction={aiResponse?.maneuver?.steps ? aiResponse.maneuver.steps.join('\n') : 'Instruções não disponíveis.'}
+                    title={aiResponse?.maneuver?.title || 'Envie sua dúvida para receber instruções da IA.'}
+                    text={aiResponse?.response_text || 'Descrição aparecerá aqui.'}
+                    instruction={aiResponse?.maneuver?.steps ? aiResponse.maneuver.steps.join('\n') : 'Instruções personalizadas.'}
                     imageSource={aiResponse?.img || 'sos_initial_banner.gif'}
                 />
 
                 <View style={globalStyles.micArea}>
-                    <Text style={globalStyles.micText}>
-                        {recorderState.isRecording
-                            ? '🔴 Gravando... Solte para enviar'
-                            : sendingAudio
-                            ? '⏳ Enviando áudio para a IA...'
-                            : 'Hold to talk (Segure para falar)'}
-                    </Text>
 
                     <Pressable
                         style={[
@@ -308,6 +301,14 @@ export default function EmergencyScreen(props: any) {
                             />
                         )}
                     </Pressable>
+
+                    <Text style={globalStyles.micText}>
+                        {recorderState.isRecording
+                            ? '🔴 Gravando... Solte para enviar'
+                            : sendingAudio
+                            ? '⏳ Enviando áudio para a IA...'
+                            : 'Hold to talk (Segure para falar)'}
+                    </Text>
 
                 </View>
 
