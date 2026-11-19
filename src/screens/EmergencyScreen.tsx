@@ -276,8 +276,8 @@ export default function EmergencyScreen(props: any) {
 
                 <ManeuverCard
                     title={aiResponse?.maneuver?.title || 'Envie sua dúvida para receber instruções da IA.'}
-                    text={aiResponse?.response_text || 'Descrição aparecerá aqui.'}
-                    instruction={aiResponse?.maneuver?.steps ? aiResponse.maneuver.steps.join('\n') : 'Instruções personalizadas.'}
+                    text={aiResponse?.response_text || 'A instrução aparecerá aqui.'}
+                    instruction={aiResponse?.maneuver?.steps ? aiResponse.maneuver.steps.join('\n') : '...'}
                     imageSource={aiResponse?.img || 'sos_initial_banner.gif'}
                 />
 
